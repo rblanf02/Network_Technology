@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentation and Application Layers Report</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 20px; }
+        h1, h2, h3 { color: #333; }
+        p { margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+    <h1>Assignment 1 - Presentation and Application Layers</h1>
+        <h2>1. Theoretical part</h2>
+            <h3>1.1. DNS system</h3>
+
+                <h4>1.1.1. List of Top-Level Domains</h4>
+                <p></p>
+
+                <h4>1.1.2. Hierarchical structure of the Domain Name System (DNS), Top-Level Domains, DNS queries, DNS delegation</h4>
+                <p></p>
+
+                <h4>1.1.3. DNS record, DNS and reverse DNS</h4>
+                <p></p>
+
+                <h4>1.1.4. Authoritative answer and non-authoritative answer explanation</h4>
+                <p></p>
+
+                <h4>1.1.5. DNS resolver, DNS cache, file: /etc/hosts</h4>
+                <p></p>
+
+            <h3>1.2. Mail system</h3>
+
+                <h4>1.2.1. Protocols POP3, IMAP, SMTP, client-server communication, basic commands</h4>
+                <p></p>
+
+                <h4>1.2.2. NNTP protocol</h4>
+                <p></p>
+
+                <h4>1.2.3. E-mail mailbox, parameters, aliases, address</h4>
+                <p></p>
+
+                <h4>1.2.4. E-mail structure: header, separator</h4>
+                <p></p>
+
+                <h4>1.2.5. Attachments, e-mail coding, MIME</h4>
+                <p></p>
+
+                <h4>1.2.6. Mailing lists, e-mail gate</h4>
+                <p></p>
+
+                <h4>1.2.7. E-mail security, SSL, TLS, PGP, signature</h4>
+                <p></p>
+
+                <h4>1.2.8. Spam, blacklists, graylists, spam filtering</h4>
+                <p></p>
+
+        <h2>2. Practical part</h2>
+            <h3>2.1. DNS system</h3>
+
+                <h4>2.1.1. Display DNS settings on your computer using Control Panel and ipconfig. Find the Google DNS server and change DNS settings on your computer to use this server.</h4>
+                <p>The DNS settings were modified using the Windows Control Panel to use the DNS 8.8.8.8 , after that, we show it with the comand "ipconfig /all".</p>
+                <img src="images/2_1_1_image.png" alt="ipconfig /all showing Google DNS" width="800">
+
+                <h4>2.1.2. Using dig, host, and nslookup, find the following information:</h4>
+
+                    <h5>2.1.2.1. Domain names and corresponding IP addresses of computers in the lodz.pl domain.</h5>
+                    <p>Using "nslookup", We queried the NS and MX records of lodz.pl to identify its infrastructure servers and their corresponding IP addresses.</p>
+                    <img src="images/2_1_2_1_image.png" alt="NS and MX records for lodz.pl" width="800">
+
+                    <h5>2.1.2.2. A computer somewhere in Europe, outside Lodz, and find all available information about the DNS settings of this computer.</h5>
+                    <p>We used "nslookup" to retrieve the IP address, the mail server and the name server records for the University of Oxford.</p>
+                    <img src="images/2_1_2_2_image.png" alt="DNS settings for Oxford University" width="800">
+
+                    <h5>2.1.2.3. A computer somewhere outside Europe (e.g., an exotic country) and find all available information about the DNS settings of this computer.</h5>
+                    <p>We queried the A, MX, and NS records for mit.edu to analyze the complete DNS configuration of a domain located outside of Europe.</p>
+                    <img src="images/2_1_2_3_image.png" alt="DNS settings for MIT" width="800">
+
+
+                    <h5>2.1.2.4. Verify DNS assignment for localhost.</h5>
+                    <p>Using the "ping" command, We verified that the operating system correctly.</p>
+                    <img src="images/2_1_2_4_image.png" alt="Localhost ping resolution" width="800">
+
+                    <h5>2.1.2.5. Flush the DNS memory on your computer using ipconfig.</h5>
+                    <p>The local DNS cache was successfully cleared using the "ipconfig /flushdns" command.</p>
+                    <img src="images/2_1_2_5_image.png" alt="Flushing DNS in Windows" width="800">
+
+
+                    <h5>2.1.2.6. Change the hosts file such that when you enter ifeXX.com, the website msn.com will display (where XX is the number of your IFE group).</h5>
+                    <p>The Windows "hosts" file was successfully modified to map the custom domain ifeKL_1_8.com to the IP address of msn.com. Although Microsoft's servers returned a service error due to a Host header mismatch, the redirection itself was successful, proving the local DNS override worked.</p>
+                    <img src="images/2_1_2_6_image.png" alt="Modified hosts file redirecting to Microsoft servers" width="800">
+
+            <h3>2.2. Mail system</h3>
+
+                <h4>2.2.1. Configure Thunderbird to send and receive e-mails from any e-mail server.</h4>
+                <p>Thunderbird was configured to connect to an existing email, using the IMAP protocol on port 993.</p>
+                <img src="images/2_2_1_image.png" alt="Thunderbird Server Settings" width="800">
+
+
+                <h4>2.2.2. Send an e-mail to:</h4>
+
+                    <h5>2.2.2.1. A non-existent mail server.</h5>
+                    <p>Sending an email to a non-existent domain fails because the DNS resolver cannot find an MX record for the destination.</p>
+                    <img src="images/2_2_2_1_image.png" alt="Non-existent mail server error" width="800">
+
+                    <h5>2.2.2.2. A non-existent user on an existent e-mail server.</h5>
+                    <p>The server accepted the connection but sent back a message because the requested username does not exist in its database.</p>
+                    <img src="images/2_2_2_2_image.png" alt="User unknown error message" width="800">
+
+                    <h5>2.2.2.3. A server which is not an e-mail server (you must receive and understand the response).</h5>
+                    <p>Sending an email to a domain not configured for mail services because the administrator indicated thet it does not accept emails.</p>
+                    <img src="images/2_2_2_3_image.png" alt="Null MX record error" width="800">
+
+                <h4>2.2.3. Using Wireshark, analyze the process of sending and receiving e-mails from Thunderbird. Identify all protocols involved in the process of sending and receiving e-mails.</h4>
+                <p>Using Wireshark, I captured the network traffic generated by Thunderbird while sending and receiving an email, filtering by ports 993 and 465/587.</p>
+                <img src="images/2_2_3_image.png" alt="Wireshark capture" width="800">
+
+
+                <h4>2.2.4. Send an e-mail by connecting to an SMTP server using telnet.</h4>
+                <p></p>
+
+</body>
+</html>
