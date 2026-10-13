@@ -16,45 +16,187 @@
             <h3>1.1. DNS system</h3>
 
                 <h4>1.1.1. List of Top-Level Domains</h4>
-                <p></p>
+                <p>The Domain Name System (DNS) is a distributed naming system that associates domain</p>
+<p>names with information such as IP addresses and mail-server destinations. A</p>
+<p>top-level-domain (TLD) refers to the last segment of a domain name, or the part that follows</p>
+<p>immediately after the ‘dot’ symbol. We can group them into these groups:</p>
+<table border="1" style="border-collapse: collapse; margin: 10px 0;">
+  <tr><th style="padding: 8px;">Category</th><th style="padding: 8px;">Examples</th></tr>
+  <tr><td style="padding: 8px;">Generic TLDs</td><td style="padding: 8px;">.com, .org, .net, .info, .app</td></tr>
+  <tr><td style="padding: 8px;">Country-code TLDs</td><td style="padding: 8px;">.pl, .es,. uk</td></tr>
+  <tr><td style="padding: 8px;">Sponsored / restricted TLDs</td><td style="padding: 8px;">.edu, .gov</td></tr>
+  <tr><td style="padding: 8px;">Infrastructure TLD</td><td style="padding: 8px;">.arpa</td></tr>
+</table>
 
                 <h4>1.1.2. Hierarchical structure of the Domain Name System (DNS), Top-Level Domains, DNS queries, DNS delegation</h4>
-                <p></p>
+<p>DNS is organized as a distributed hierarchy, usually drawn as an inverted tree. The root is</p>
+<p>written as a dot (.). Beneath it are TLDs, followed by registered domains, subdomains and</p>
+<p>host names. In www.example.com., the labels are read from right to left: root, com, example,</p>
+<p>then www.</p>
+<p>1. <b>Root:</b> points resolvers toward the name servers responsible for TLDs.</p>
+<p>2. <b>TLD:</b> contains delegation information for domains. In other words they categorize</p>
+<p>domains based on purpose, geography, or organization such as .com.</p>
+<p>3. <b>Authoritative zone:</b> contains the records for a domain or subdomain.</p>
+<p>4. <b>Host name:</b> identifies an individual server or device on the network, (e.g., www)</p>
+<br>
+<p>A <b>DNS</b> client commonly sends a recursive <b>query</b> to a recursive resolver, asking it to resolve</p>
+<p>a hostname to an IP address or an error. The resolver may then make iterative queries: a</p>
+<p>root server refers it to the relevant TLD servers, the TLD server refers it to the domain's</p>
+<p>authoritative servers, and an authoritative server returns the requested record.</p>
+<br>
+<p><b>DNS delegation</b> is the process by which a parent DNS zone indicates to DNS resolvers that</p>
+<p>it has delegated the authority for a DNS subzone (or child zone) to a different set of DNS</p>
+<p>servers. This allows the DNS resolvers to locate and query the delegated DNS servers for</p>
+<p>the subzone’s DNS records.</p>
 
                 <h4>1.1.3. DNS record, DNS and reverse DNS</h4>
-                <p></p>
+                <p>A <b>DNS record</b> is a set of instructions stored on authoritative DNS servers that tells the</p>
+<p>internet how to handle a specific domain name. They include a name, record type, class,</p>
+<p>time-to-live (TTL), and record data.</p>
+<p><b>Forward DNS</b> converts a hostname or web address into an IP address, and <b>reverse DNS</b></p>
+<p>converts an IP address back into a hostname or domain name.</p>
 
                 <h4>1.1.4. Authoritative answer and non-authoritative answer explanation</h4>
-                <p></p>
+                <p>An <b>authoritative answer</b> comes directly from the official source server, that holds the actual</p>
+<p>zone files and original DNS records for a domain.</p>
+<p>A <b>non-authorative</b> answer may be supplied by a secondary or intermediate server—such</p>
+<p>as a recursive resolver, your ISP, or a local cache—that does not own the original domain</p>
+<p>records. Instead, it replies using a saved copy (cache) from a previous lookup.</p>
+<p>Non-authoritative does not automatically mean incorrect: cached records are normally</p>
+<p>usable until their TTL expires, although they can become outdated if caching rules are</p>
+<p>violated.</p>
 
                 <h4>1.1.5. DNS resolver, DNS cache, file: /etc/hosts</h4>
-                <p></p>
+                <p>A <b>DNS resolver</b> is the software component that performs DNS lookups for an application or</p>
+<p>user. It translates human-readable domain names into numerical IP addresses.</p>
+<br>
+<p><b>DNS cache</b> temporarily stores answers and their TTLs, reducing latency and repeated</p>
+<p>network traffic, mainly used to speed up future lookups.</p>
+<br>
+<p>The <b>/etc/hosts file</b> acts as a static local text file that maps hostnames directly to IP</p>
+<p>addresses before any network DNS query happens. It is a local static mapping between IP</p>
+<p>addresses and host names that may be checked before DNS according to the system's</p>
+<p>name-service configuration.</p>
+
 
             <h3>1.2. Mail system</h3>
 
                 <h4>1.2.1. Protocols POP3, IMAP, SMTP, client-server communication, basic commands</h4>
-                <p></p>
+                <p>E-mail uses different protocols for message submission, transfer and retrieval. In the</p>
+<p>client-server model, the client initiates a request and the server returns a response.</p>
+<table border="1" style="border-collapse: collapse; margin: 10px 0;">
+  <tr><th style="padding: 8px;">Protocol</th><th style="padding: 8px;">Purpose</th><th style="padding: 8px;">Example commands</th></tr>
+  <tr><td style="padding: 8px;">SMTP</td><td style="padding: 8px;">Used to send emails from a client to a mail server and to transfer emails between mail servers</td><td style="padding: 8px;">EHLO, MAIL FROM, RCPT TO, DATA, QUIT</td></tr>
+  <tr><td style="padding: 8px;">POP3</td><td style="padding: 8px;">Retrieves emails from a mail server and download them to a user's device (the client)</td><td style="padding: 8px;">USER, PASS, STAT, LIST, RETR, DELE, QUIT</td></tr>
+  <tr><td style="padding: 8px;">IMAP</td><td style="padding: 8px;">Accesses and synchronizes messages and folders stored on the mail server</td><td style="padding: 8px;">LOGIN, SELECT, FETCH, STORE, SEARCH, LOGOUT</td></tr>
+</table>
+<p>With SMTP, a simplified transaction is: the client introduces itself using EHLO, identifies the</p>
+<p>envelope sender with MAIL FROM, specifies one or more recipients with RCPT TO, sends</p>
+<p>the message after DATA, terminates the data with a line containing a single dot, and ends</p>
+<p>the session with QUIT. Servers reply with three-digit status codes such as 250 (success),</p>
+<p>354 (start message data), 4xx (temporary failure) or 5xx (permanent failure).</p>
 
                 <h4>1.2.2. NNTP protocol</h4>
-                <p></p>
+                <p><b>NNTP</b> (Network News Transfer Protocol) is an application-layer internet protocol used to</p>
+<p>transport, read, and post Usenet newsgroup articles between servers and client</p>
+<p>newsreaders.</p>
+<p>A newsreader connects to an NNTP server, selects a newsgroup, retrieves article headers or</p>
+<p>bodies, and may post an article if permitted. Unlike SMTP, which transfers e-mail, NNTP is</p>
+<p>designed around news articles and newsgroups.</p>
 
                 <h4>1.2.3. E-mail mailbox, parameters, aliases, address</h4>
-                <p></p>
+                <p>An <b>email address</b> is a unique identifier used to send and receive electronic mail, structured</p>
+<p>as username@domain.com. The username is interpreted by the receiving mail system; the</p>
+<p>domain identifies the domain responsible for handling mail for that address.</p>
+<br>
+<p>A mailbox is the server-side or client-managed storage area in which messages are kept.</p>
+<p>Important mailbox and account <b>parameters</b> may include:</p>
+<p>● Incoming server name, protocol (IMAP or POP3), port and encryption method.</p>
+<p>● Outgoing SMTP server name, port, authentication method and encryption method.</p>
+<p>● Username and authentication requirements.</p>
+<p>● Mailbox quota, message-size limits and attachment-size limits.</p>
+<p>● Folders, retention rules, forwarding and access permissions.</p>
+<br>
+<p>An <b>e-mail alias</b> is an alternate email address that delivers messages to another mailbox or</p>
+<p>group. An alias may be receive-only or may be configured as a permitted sending identity;</p>
+<p>that depends on the mail service. An alias is not necessarily a separate mailbox and may not</p>
+<p>have its own password or storage.</p>
 
                 <h4>1.2.4. E-mail structure: header, separator</h4>
-                <p></p>
+                <p>An Internet e-mail message has a header followed by a body. Header fields are written as a</p>
+<p>field name, colon and value. Common fields include From:, To:, Date:, Subject:, Cc: and</p>
+<p>Message-ID:. A blank line separates the header from the body. An example could be: </p>
+<p>From: maria@example.com</p>
+<p>To: ruben@example.net</p>
+<p>Subject: Example message</p>
+<p>Date: Mon, 12 Oct 2026 10:00:00 +0200</p>
+<p>Hello Bob,</p>
+<p>This is the body of the message.</p>
+<br>
+<p>The header contains metadata; the body contains the message content. Envelope</p>
+<p>information used by SMTP (such as the arguments to MAIL FROM and RCPT TO) is distinct</p>
+<p>from the visible message headers.</p>
 
                 <h4>1.2.5. Attachments, e-mail coding, MIME</h4>
-                <p></p>
+                <p><b>MIME</b> (Multipurpose Internet Mail Extensions) is an internet standard that expands email</p>
+<p>capabilities far beyond basic plain ASCII text. It allows emails to carry rich media,</p>
+<p>non-English character sets, HTML formatting, and file attachments.</p>
+<br>
+<p>MIME headers describe the content type and transfer encoding. Common fields include</p>
+<p>Content-Type, Content-Transfer-Encoding and Content-Disposition.</p>
+<br>
+<p>A message with multiple parts can use a multipart content type and boundaries to separate</p>
+<p>parts.</p>
+<p> - Base64 is commonly used to represent binary attachment data as ASCII characters</p>
+<p>suitable for transport through systems that historically expected text.</p>
+<p> - Quoted-printable is another encoding, often suitable for mostly textual content.</p>
+<br>
+<p>MIME encoding is not encryption: an encoded attachment is not confidential unless</p>
+<p>encryption is applied separately.</p>
 
                 <h4>1.2.6. Mailing lists, e-mail gate</h4>
-                <p></p>
+                <p>A <b>mailing list</b> (or email list) is a collection of email addresses grouped together to send the</p>
+<p>same message or newsletter to multiple recipients at once. Instead of typing dozens or</p>
+<p>hundreds of individual email addresses, a sender transmits the message to a single list</p>
+<p>address or through an email marketing platform, which automatically distributes it to every</p>
+<p>subscribed</p>
+<br>
+<p>An <b>e-mail gate</b> is a system that relays, filters, scans, routes or translates messages between</p>
+<p>mail systems or between e-mail and another messaging environment. Gates can enforce</p>
+<p>security policies, filter malware and spam, or connect separate organizations. The exact</p>
+<p>function depends on the gateway configuration.</p>
 
                 <h4>1.2.7. E-mail security, SSL, TLS, PGP, signature</h4>
-                <p></p>
+                <p>E-mail security is the practice of protecting email accounts, content, and communications</p>
+<p>from unauthorized access, loss, or compromise. It uses encryption, authentication, and</p>
+<p>protocols to ensure privacy and trust. Key Protocols and concepts:</p>
+<p> - <b>SSL</b> (Secure Sockets Layer): An older cryptographic protocol designed to create a</p>
+<p>secure, encrypted link between a client and a server. It has been deprecated and</p>
+<p>replaced by TLS due to vulnerabilities.</p>
+<p> - <b>TLS</b> (Transport Layer Security): The modern successor to SSL that encrypts email</p>
+<p>data in transit (as it travels across the network between a client and server or</p>
+<p>between mail servers via a secure "handshake"). TLS does not, by itself, guarantee</p>
+<p>end-to-end confidentiality across every server that handles a message.</p>
+<p> - <b>PGP</b> (Pretty Good Privacy): An encryption program that provides true end-to-end</p>
+<p>encryption for emails. Properly configured end-to-end encryption can prevent</p>
+<p>intermediate mail servers from reading the protected message content</p>
+<p> - <b>Digital Signature</b>: A mathematical technique used to prove the authenticity of the</p>
+<p>sender and verify that the message has not been altered in transit. A signature does</p>
+<p>not encrypt the body of the email on its own, but it guarantees who sent it and that it</p>
+<p>is intact.</p>
 
                 <h4>1.2.8. Spam, blacklists, graylists, spam filtering</h4>
-                <p></p>
+                <p>- <b>Spam</b> is unwanted bulk messaging (like junk email or scam texts) sent to clutter inboxes,</p>
+<p>spread malware, or trick users.</p>
+<p>- A <b>blocklist</b> (historically called a blacklist) records IP addresses, domains or other</p>
+<p>identifiers with a poor reputation. Mail systems can consult such lists when deciding whether</p>
+<p>to accept a message, but false positives are possible.</p>
+<p>- <b></b>Graylists</b> (Greylisting) is an anti-spam technique that temporarily rejects an email from an</p>
+<p>unknown sender and sends a retry signal back to the server. Real mail servers will try again</p>
+<p>after a few minutes, while automated spam bots usually do not bother to retry.</p>
+<p>- <b></b>Spam Filtering</b> is the automated process of scanning, analyzing, and blocking unwanted</p>
+<p>or dangerous emails before they reach your main inbox. It uses rules, content scans,</p>
+<p>blacklists, and machine learning (such as Bayesian filters) to tell good mail apart from junk</p>
 
         <h2>2. Practical part</h2>
             <h3>2.1. DNS system</h3>
