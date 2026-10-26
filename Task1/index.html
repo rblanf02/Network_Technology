@@ -5,263 +5,295 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Presentation and Application Layers Report</title>
     <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 20px; }
-        h1, h2, h3 { color: #333; }
-        p { margin-bottom: 15px; }
-    </style>
+:root { 
+  --ink: #000000; 
+  --muted: #000000; 
+  --accent: #000000; 
+  --line: #d5dbe3; 
+}
+
+* { box-sizing: border-box; }
+
+body { 
+  font-family: Arial, sans-serif; 
+  color: #000000; 
+  background: #ffffff; 
+  line-height: 1.7; 
+  font-size: 17px; 
+  margin: 0; 
+}
+
+main { 
+  max-width: 780px; 
+  margin: 0 auto; 
+  padding: 48px 24px 80px; 
+}
+
+h1, h2, h3, h4, h5 { 
+  font-family: Arial, sans-serif; 
+  color: #000000;
+  line-height: 1.3; 
+}
+
+h1 { 
+  font-size: 2rem; 
+  font-weight: bold; 
+  margin: 0 0 8px; 
+}
+
+.meta { 
+  color: #000000; 
+  font-family: Arial, sans-serif; 
+  font-size: .95rem; 
+  margin: 0 0 40px; 
+  padding-bottom: 20px; 
+  border-bottom: 2px solid #000000; 
+}
+
+h2 { 
+  font-size: 1.55rem; 
+  font-weight: bold; 
+  margin: 56px 0 8px; 
+  padding-bottom: 6px; 
+  border-bottom: 1px solid var(--line); 
+}
+
+h3 { 
+  font-size: 1.2rem; 
+  margin: 36px 0 4px; 
+}
+
+h4 { 
+  font-size: 1.05rem; 
+  margin: 28px 0 6px; 
+}
+
+h5 { 
+  font-size: .98rem; 
+  margin: 22px 0 4px; 
+  font-weight: 600; 
+}
+
+p { margin: 0 0 14px; }
+ul { margin: 0 0 14px; padding-left: 22px; }
+li { margin-bottom: 6px; }
+
+code { 
+  font-family: "Times New Roman", serif; 
+  font-size: .95em; 
+  background: transparent; 
+  padding: 1px 5px; 
+}
+
+pre { 
+  font-family: "Times New Roman", serif; 
+  font-size: .95rem; 
+  background: transparent; 
+  padding: 12px 16px; 
+  overflow-x: auto; 
+  margin: 0 0 16px; 
+  line-height: 1.5; 
+  border: 1px solid var(--line);
+}
+
+.tw { overflow-x: auto; margin: 14px 0 20px; }
+table { border-collapse: collapse; width: 100%; font-size: .95rem; }
+th, td { border: 1px solid var(--line); padding: 8px 12px; text-align: left; vertical-align: top; }
+th { background: transparent; font-family: Arial, sans-serif; font-weight: bold; }
+
+figure { margin: 14px 0 26px; }
+img { display: block; max-width: 100%; height: auto; border: 1px solid var(--line); }
+figcaption { font-size: .88rem; color: #000000; margin-top: 6px; font-style: italic; }
+
+.note { 
+  background: transparent; 
+  border: 1px solid var(--line); 
+  padding: 10px 16px; 
+  margin: 0 0 16px; 
+  font-size: .95rem; 
+}
+</style>
 </head>
 <body>
-    <h1>Assignment 1 - Presentation and Application Layers</h1>
-        <h2>1. Theoretical part</h2>
-            <h3>1.1. DNS system</h3>
+  <main>
+<h1>Assignment 1 – Presentation and Application Layers</h1>
+<p class="meta">Network Technologies - Politechnika Łódzka - Rubén Blanco and María Celdrán</p>
+ 
+<h2>1. Theoretical part</h2>
+ 
+<h3>1.1. DNS system</h3>
 
-                <h4>1.1.1. List of Top-Level Domains</h4>
-                <p>The Domain Name System (DNS) is a distributed naming system that associates domain</p>
-<p>names with information such as IP addresses and mail-server destinations. A</p>
-<p>top-level-domain (TLD) refers to the last segment of a domain name, or the part that follows</p>
-<p>immediately after the ‘dot’ symbol. We can group them into these groups:</p>
-<table border="1" style="border-collapse: collapse; margin: 10px 0;">
-  <tr><th style="padding: 8px;">Category</th><th style="padding: 8px;">Examples</th></tr>
-  <tr><td style="padding: 8px;">Generic TLDs</td><td style="padding: 8px;">.com, .org, .net, .info, .app</td></tr>
-  <tr><td style="padding: 8px;">Country-code TLDs</td><td style="padding: 8px;">.pl, .es,. uk</td></tr>
-  <tr><td style="padding: 8px;">Sponsored / restricted TLDs</td><td style="padding: 8px;">.edu, .gov</td></tr>
-  <tr><td style="padding: 8px;">Infrastructure TLD</td><td style="padding: 8px;">.arpa</td></tr>
-</table>
+<h4>1.1.1. List of Top-Level Domains</h4>
+<p>The Domain Name System (DNS) is a distributed naming system that associates domain names with information such as IP addresses and mail-server destinations. Without it, users would have to remember numeric addresses for every service they use. A top-level domain (TLD) is the last segment of a domain name, the part that follows the final dot. In <code>www.p.lodz.pl</code>, for example, the TLD is <code>.pl</code>. TLDs are managed by designated registries and can be grouped as follows:</p>
+<div class="tw"><table>
+<tr><th>Category</th><th>Examples</th></tr>
+<tr><td>Generic TLDs</td><td>.com, .org, .net, .info, .app</td></tr>
+<tr><td>Country-code TLDs</td><td>.pl, .es, .uk</td></tr>
+<tr><td>Sponsored / restricted TLDs</td><td>.edu, .gov</td></tr>
+<tr><td>Infrastructure TLD</td><td>.arpa</td></tr>
+</table></div>
 
-                <h4>1.1.2. Hierarchical structure of the Domain Name System (DNS), Top-Level Domains, DNS queries, DNS delegation</h4>
-<p>DNS is organized as a distributed hierarchy, usually drawn as an inverted tree. The root is</p>
-<p>written as a dot (.). Beneath it are TLDs, followed by registered domains, subdomains and</p>
-<p>host names. In www.example.com., the labels are read from right to left: root, com, example,</p>
-<p>then www.</p>
-<p>1. <b>Root:</b> points resolvers toward the name servers responsible for TLDs.</p>
-<p>2. <b>TLD:</b> contains delegation information for domains. In other words they categorize</p>
-<p>domains based on purpose, geography, or organization such as .com.</p>
-<p>3. <b>Authoritative zone:</b> contains the records for a domain or subdomain.</p>
-<p>4. <b>Host name:</b> identifies an individual server or device on the network, (e.g., www)</p>
-<br>
-<p>A <b>DNS</b> client commonly sends a recursive <b>query</b> to a recursive resolver, asking it to resolve</p>
-<p>a hostname to an IP address or an error. The resolver may then make iterative queries: a</p>
-<p>root server refers it to the relevant TLD servers, the TLD server refers it to the domain's</p>
-<p>authoritative servers, and an authoritative server returns the requested record.</p>
-<br>
-<p><b>DNS delegation</b> is the process by which a parent DNS zone indicates to DNS resolvers that</p>
-<p>it has delegated the authority for a DNS subzone (or child zone) to a different set of DNS</p>
-<p>servers. This allows the DNS resolvers to locate and query the delegated DNS servers for</p>
-<p>the subzone’s DNS records.</p>
+<h4>1.1.2. Hierarchical structure of DNS, Top-Level Domains, DNS queries, DNS delegation</h4>
+<p>DNS is organized as a distributed hierarchy, usually drawn as an inverted tree. The root is written as a dot (<code>.</code>). Beneath it are the TLDs, followed by registered domains, subdomains and host names. In <code>www.example.com.</code> the labels are read from right to left: root, <code>com</code>, <code>example</code>, then <code>www</code>. No single server stores the whole tree, so each level only needs to know who is responsible for the level below it.</p>
+<ol>
+<li><b>Root:</b> points resolvers toward the name servers responsible for each TLD.</li>
+<li><b>TLD:</b> contains delegation information for the domains registered under it. TLDs also categorize domains by purpose, geography or organization, such as <code>.com</code>.</li>
+<li><b>Authoritative zone:</b> contains the actual records for a domain or subdomain.</li>
+<li><b>Host name:</b> identifies an individual server or device on the network, e.g. <code>www</code>.</li>
+</ol>
+<p>A DNS client commonly sends a recursive <b>query</b> to a recursive resolver, asking it to return either the final IP address or an error. The resolver then makes iterative queries: a root server refers it to the relevant TLD servers, the TLD server refers it to the domain’s authoritative servers, and an authoritative server returns the requested record. The client only sees one question and one answer; the resolver does all the intermediate work and caches the result.</p>
+<p><b>DNS delegation</b> is the process by which a parent zone tells resolvers that it has handed over authority for a child zone to a different set of name servers. It is implemented with NS records placed in the parent zone. This allows the DNS resolvers to locate and query the delegated DNS servers for the subzone’s DNS records.</p>
 
-                <h4>1.1.3. DNS record, DNS and reverse DNS</h4>
-                <p>A <b>DNS record</b> is a set of instructions stored on authoritative DNS servers that tells the</p>
-<p>internet how to handle a specific domain name. They include a name, record type, class,</p>
-<p>time-to-live (TTL), and record data.</p>
-<p><b>Forward DNS</b> converts a hostname or web address into an IP address, and <b>reverse DNS</b></p>
-<p>converts an IP address back into a hostname or domain name.</p>
+<h4>1.1.3. DNS record, DNS and reverse DNS</h4>
+<p>A <b>DNS record</b> is a set of instructions stored on authoritative DNS servers that tells the Internet how to handle a specific domain name. Each record has a name, a record type, a class, a time-to-live (TTL) and record data. Common types are A (IPv4 address), AAAA (IPv6 address), CNAME (alias), MX (mail exchanger), NS (name server) and TXT (free text).</p>
+<p><b>Forward DNS</b> converts a hostname or web address into an IP address, while <b>reverse DNS</b> converts an IP address back into a hostname. Reverse lookups use PTR records stored under the special domains <code>in-addr.arpa</code> (IPv4) and <code>ip6.arpa</code> (IPv6). Forward and reverse records are administered separately, so they do not always match.</p>
 
-                <h4>1.1.4. Authoritative answer and non-authoritative answer explanation</h4>
-                <p>An <b>authoritative answer</b> comes directly from the official source server, that holds the actual</p>
-<p>zone files and original DNS records for a domain.</p>
-<p>A <b>non-authorative</b> answer may be supplied by a secondary or intermediate server—such</p>
-<p>as a recursive resolver, your ISP, or a local cache—that does not own the original domain</p>
-<p>records. Instead, it replies using a saved copy (cache) from a previous lookup.</p>
-<p>Non-authoritative does not automatically mean incorrect: cached records are normally</p>
-<p>usable until their TTL expires, although they can become outdated if caching rules are</p>
-<p>violated.</p>
+<h4>1.1.4. Authoritative answer and non-authoritative answer explanation</h4>
+<p>An <b>authoritative answer</b> comes directly from the official server that holds the zone files and original records for a domain. The answer is marked with the <code>aa</code> flag, and it reflects the current data of the domain owner.</p>
+<p>A <b>non-authoritative answer</b> is supplied by a server that does not own the domain, such as a recursive resolver, your ISP or a local cache. It replies using a saved copy from a previous lookup. Non-authoritative does not mean incorrect: cached records are valid until their TTL expires. The downside is that they can be outdated if the owner changed the record recently, which is why a short TTL speeds up changes while a long TTL reduces traffic.</p>
 
-                <h4>1.1.5. DNS resolver, DNS cache, file: /etc/hosts</h4>
-                <p>A <b>DNS resolver</b> is the software component that performs DNS lookups for an application or</p>
-<p>user. It translates human-readable domain names into numerical IP addresses.</p>
-<br>
-<p><b>DNS cache</b> temporarily stores answers and their TTLs, reducing latency and repeated</p>
-<p>network traffic, mainly used to speed up future lookups.</p>
-<br>
-<p>The <b>/etc/hosts file</b> acts as a static local text file that maps hostnames directly to IP</p>
-<p>addresses before any network DNS query happens. It is a local static mapping between IP</p>
-<p>addresses and host names that may be checked before DNS according to the system's</p>
-<p>name-service configuration.</p>
+<h4>1.1.5. DNS resolver, DNS cache, file /etc/hosts</h4>
+<p>A <b>DNS resolver</b> is the software component that performs DNS lookups on behalf of an application or user, translating human-readable domain names into numerical IP addresses.</p>
+<p>A <b>DNS cache</b> temporarily stores answers together with their TTLs. It reduces latency and repeated network traffic, because a name that was resolved recently does not need to be looked up again.</p>
+<p>The <b>/etc/hosts file</b> is a static local text file that maps IP addresses to host names. Depending on the system’s name-service configuration, it is checked before any DNS query is sent.</p>
+
+<h3>1.2. Mail system</h3>
+ 
+<h4>1.2.1. Protocols POP3, IMAP, SMTP, client-server communication, basic commands</h4>
+<p>E-mail uses different protocols for message submission, transfer and retrieval. In the client-server model, the client initiates a request and the server returns a response.</p>
+<div class="tw"><table>
+<tr><th>Protocol</th><th>Purpose</th><th>Example commands</th></tr>
+<tr><td>SMTP</td><td>Sends e-mail from a client to a mail server and transfers e-mail between mail servers</td><td>EHLO, MAIL FROM, RCPT TO, DATA, QUIT</td></tr>
+<tr><td>POP3</td><td>Retrieves e-mail from a server and downloads it to the user’s device</td><td>USER, PASS, STAT, LIST, RETR, DELE, QUIT</td></tr>
+<tr><td>IMAP</td><td>Accesses and synchronizes messages and folders that stay stored on the server</td><td>LOGIN, SELECT, FETCH, STORE, SEARCH, LOGOUT</td></tr>
+</table></div>
+<p>A simplified SMTP transaction works as follows: the client introduces itself with <code>EHLO</code>, identifies the envelope sender with <code>MAIL FROM</code>, names one or more recipients with <code>RCPT TO</code>, sends the message after <code>DATA</code>, ends it with a line containing a single dot, and closes the session with <code>QUIT</code>. The server answers every command with a three-digit status code: 250 (success), 354 (start message data), 4xx (temporary failure) or 5xx (permanent failure).</p>
 
 
-            <h3>1.2. Mail system</h3>
+<h4>1.2.2. NNTP protocol</h4>
+<p><b>NNTP</b> (Network News Transfer Protocol) is an application-layer Internet protocol used to transport, read and post Usenet newsgroup articles between servers and client newsreaders. A newsreader connects to an NNTP server, selects a newsgroup, retrieves article headers or bodies, and may post an article if permitted. Unlike SMTP, which transfers e-mail addressed to specific people, NNTP is designed around public articles organized in newsgroups.</p>
 
-                <h4>1.2.1. Protocols POP3, IMAP, SMTP, client-server communication, basic commands</h4>
-                <p>E-mail uses different protocols for message submission, transfer and retrieval. In the</p>
-<p>client-server model, the client initiates a request and the server returns a response.</p>
-<table border="1" style="border-collapse: collapse; margin: 10px 0;">
-  <tr><th style="padding: 8px;">Protocol</th><th style="padding: 8px;">Purpose</th><th style="padding: 8px;">Example commands</th></tr>
-  <tr><td style="padding: 8px;">SMTP</td><td style="padding: 8px;">Used to send emails from a client to a mail server and to transfer emails between mail servers</td><td style="padding: 8px;">EHLO, MAIL FROM, RCPT TO, DATA, QUIT</td></tr>
-  <tr><td style="padding: 8px;">POP3</td><td style="padding: 8px;">Retrieves emails from a mail server and download them to a user's device (the client)</td><td style="padding: 8px;">USER, PASS, STAT, LIST, RETR, DELE, QUIT</td></tr>
-  <tr><td style="padding: 8px;">IMAP</td><td style="padding: 8px;">Accesses and synchronizes messages and folders stored on the mail server</td><td style="padding: 8px;">LOGIN, SELECT, FETCH, STORE, SEARCH, LOGOUT</td></tr>
-</table>
-<p>With SMTP, a simplified transaction is: the client introduces itself using EHLO, identifies the</p>
-<p>envelope sender with MAIL FROM, specifies one or more recipients with RCPT TO, sends</p>
-<p>the message after DATA, terminates the data with a line containing a single dot, and ends</p>
-<p>the session with QUIT. Servers reply with three-digit status codes such as 250 (success),</p>
-<p>354 (start message data), 4xx (temporary failure) or 5xx (permanent failure).</p>
-
-                <h4>1.2.2. NNTP protocol</h4>
-                <p><b>NNTP</b> (Network News Transfer Protocol) is an application-layer internet protocol used to</p>
-<p>transport, read, and post Usenet newsgroup articles between servers and client</p>
-<p>newsreaders.</p>
-<p>A newsreader connects to an NNTP server, selects a newsgroup, retrieves article headers or</p>
-<p>bodies, and may post an article if permitted. Unlike SMTP, which transfers e-mail, NNTP is</p>
-<p>designed around news articles and newsgroups.</p>
-
-                <h4>1.2.3. E-mail mailbox, parameters, aliases, address</h4>
-                <p>An <b>email address</b> is a unique identifier used to send and receive electronic mail, structured</p>
-<p>as username@domain.com. The username is interpreted by the receiving mail system; the</p>
-<p>domain identifies the domain responsible for handling mail for that address.</p>
-<br>
-<p>A mailbox is the server-side or client-managed storage area in which messages are kept.</p>
-<p>Important mailbox and account <b>parameters</b> may include:</p>
-<p>● Incoming server name, protocol (IMAP or POP3), port and encryption method.</p>
-<p>● Outgoing SMTP server name, port, authentication method and encryption method.</p>
-<p>● Username and authentication requirements.</p>
-<p>● Mailbox quota, message-size limits and attachment-size limits.</p>
-<p>● Folders, retention rules, forwarding and access permissions.</p>
-<br>
-<p>An <b>e-mail alias</b> is an alternate email address that delivers messages to another mailbox or</p>
-<p>group. An alias may be receive-only or may be configured as a permitted sending identity;</p>
-<p>that depends on the mail service. An alias is not necessarily a separate mailbox and may not</p>
-<p>have its own password or storage.</p>
-
-                <h4>1.2.4. E-mail structure: header, separator</h4>
-                <p>An Internet e-mail message has a header followed by a body. Header fields are written as a</p>
-<p>field name, colon and value. Common fields include From:, To:, Date:, Subject:, Cc: and</p>
-<p>Message-ID:. A blank line separates the header from the body. An example could be: </p>
-<p>From: maria@example.com</p>
-<p>To: ruben@example.net</p>
-<p>Subject: Example message</p>
-<p>Date: Mon, 12 Oct 2026 10:00:00 +0200</p>
-<p>Hello Bob,</p>
-<p>This is the body of the message.</p>
-<br>
-<p>The header contains metadata; the body contains the message content. Envelope</p>
-<p>information used by SMTP (such as the arguments to MAIL FROM and RCPT TO) is distinct</p>
-<p>from the visible message headers.</p>
-
-                <h4>1.2.5. Attachments, e-mail coding, MIME</h4>
-                <p><b>MIME</b> (Multipurpose Internet Mail Extensions) is an internet standard that expands email</p>
-<p>capabilities far beyond basic plain ASCII text. It allows emails to carry rich media,</p>
-<p>non-English character sets, HTML formatting, and file attachments.</p>
-<br>
-<p>MIME headers describe the content type and transfer encoding. Common fields include</p>
-<p>Content-Type, Content-Transfer-Encoding and Content-Disposition.</p>
-<br>
-<p>A message with multiple parts can use a multipart content type and boundaries to separate</p>
-<p>parts.</p>
-<p> - Base64 is commonly used to represent binary attachment data as ASCII characters</p>
-<p>suitable for transport through systems that historically expected text.</p>
-<p> - Quoted-printable is another encoding, often suitable for mostly textual content.</p>
-<br>
-<p>MIME encoding is not encryption: an encoded attachment is not confidential unless</p>
-<p>encryption is applied separately.</p>
-
-                <h4>1.2.6. Mailing lists, e-mail gate</h4>
-                <p>A <b>mailing list</b> (or email list) is a collection of email addresses grouped together to send the</p>
-<p>same message or newsletter to multiple recipients at once. Instead of typing dozens or</p>
-<p>hundreds of individual email addresses, a sender transmits the message to a single list</p>
-<p>address or through an email marketing platform, which automatically distributes it to every</p>
-<p>subscribed</p>
-<br>
-<p>An <b>e-mail gate</b> is a system that relays, filters, scans, routes or translates messages between</p>
-<p>mail systems or between e-mail and another messaging environment. Gates can enforce</p>
-<p>security policies, filter malware and spam, or connect separate organizations. The exact</p>
-<p>function depends on the gateway configuration.</p>
-
-                <h4>1.2.7. E-mail security, SSL, TLS, PGP, signature</h4>
-                <p>E-mail security is the practice of protecting email accounts, content, and communications</p>
-<p>from unauthorized access, loss, or compromise. It uses encryption, authentication, and</p>
-<p>protocols to ensure privacy and trust. Key Protocols and concepts:</p>
-<p> - <b>SSL</b> (Secure Sockets Layer): An older cryptographic protocol designed to create a</p>
-<p>secure, encrypted link between a client and a server. It has been deprecated and</p>
-<p>replaced by TLS due to vulnerabilities.</p>
-<p> - <b>TLS</b> (Transport Layer Security): The modern successor to SSL that encrypts email</p>
-<p>data in transit (as it travels across the network between a client and server or</p>
-<p>between mail servers via a secure "handshake"). TLS does not, by itself, guarantee</p>
-<p>end-to-end confidentiality across every server that handles a message.</p>
-<p> - <b>PGP</b> (Pretty Good Privacy): An encryption program that provides true end-to-end</p>
-<p>encryption for emails. Properly configured end-to-end encryption can prevent</p>
-<p>intermediate mail servers from reading the protected message content</p>
-<p> - <b>Digital Signature</b>: A mathematical technique used to prove the authenticity of the</p>
-<p>sender and verify that the message has not been altered in transit. A signature does</p>
-<p>not encrypt the body of the email on its own, but it guarantees who sent it and that it</p>
-<p>is intact.</p>
-
-                <h4>1.2.8. Spam, blacklists, graylists, spam filtering</h4>
-                <p>- <b>Spam</b> is unwanted bulk messaging (like junk email or scam texts) sent to clutter inboxes,</p>
-<p>spread malware, or trick users.</p>
-<p>- A <b>blocklist</b> (historically called a blacklist) records IP addresses, domains or other</p>
-<p>identifiers with a poor reputation. Mail systems can consult such lists when deciding whether</p>
-<p>to accept a message, but false positives are possible.</p>
-<p>- <b></b>Graylists</b> (Greylisting) is an anti-spam technique that temporarily rejects an email from an</p>
-<p>unknown sender and sends a retry signal back to the server. Real mail servers will try again</p>
-<p>after a few minutes, while automated spam bots usually do not bother to retry.</p>
-<p>- <b></b>Spam Filtering</b> is the automated process of scanning, analyzing, and blocking unwanted</p>
-<p>or dangerous emails before they reach your main inbox. It uses rules, content scans,</p>
-<p>blacklists, and machine learning (such as Bayesian filters) to tell good mail apart from junk</p>
-
-        <h2>2. Practical part</h2>
-            <h3>2.1. DNS system</h3>
-
-                <h4>2.1.1. Display DNS settings on your computer using Control Panel and ipconfig. Find the Google DNS server and change DNS settings on your computer to use this server.</h4>
-                <p>The DNS settings were modified using the Windows Control Panel to use the DNS 8.8.8.8 , after that, we show it with the comand "ipconfig /all".</p>
-                <img src="images/2_1_1_image.png" alt="ipconfig /all showing Google DNS" width="800">
-
-                <h4>2.1.2. Using dig, host, and nslookup, find the following information:</h4>
-
-                    <h5>2.1.2.1. Domain names and corresponding IP addresses of computers in the lodz.pl domain.</h5>
-                    <p>Using "nslookup", We queried the NS and MX records of lodz.pl to identify its infrastructure servers and their corresponding IP addresses.</p>
-                    <img src="images/2_1_2_1_image.png" alt="NS and MX records for lodz.pl" width="800">
-
-                    <h5>2.1.2.2. A computer somewhere in Europe, outside Lodz, and find all available information about the DNS settings of this computer.</h5>
-                    <p>We used "nslookup" to retrieve the IP address, the mail server and the name server records for the University of Oxford.</p>
-                    <img src="images/2_1_2_2_image.png" alt="DNS settings for Oxford University" width="800">
-
-                    <h5>2.1.2.3. A computer somewhere outside Europe (e.g., an exotic country) and find all available information about the DNS settings of this computer.</h5>
-                    <p>We queried the A, MX, and NS records for mit.edu to analyze the complete DNS configuration of a domain located outside of Europe.</p>
-                    <img src="images/2_1_2_3_image.png" alt="DNS settings for MIT" width="800">
+<h4>1.2.3. E-mail mailbox, parameters, aliases, address</h4>
+<p>An <b>e-mail address</b> is a unique identifier used to send and receive electronic mail, structured as <code>username@domain.com</code>. The username is interpreted by the receiving mail system, while the domain identifies who is responsible for handling mail for that address. A <b>mailbox</b> is the server-side or client-managed storage area in which messages are kept. Important mailbox and account <b>parameters</b> include:</p>
+<ul>
+ 
+<li>Incoming server name, protocol (IMAP or POP3), port and encryption method.</li>
+<li>Outgoing SMTP server name, port, authentication method and encryption method.</li>
+<li>Username and authentication requirements.</li>
+<li>Mailbox quota, message-size limits and attachment-size limits.</li>
+<li>Folders, retention rules, forwarding and access permissions.</li>
+</ul>
+<p>An <b>e-mail alias</b> is an alternate address that delivers messages to another mailbox or group. An alias may be receive-only or may be configured as a permitted sending identity, depending on the mail service. It is not necessarily a separate mailbox and may not have its own password or storage.</p>
 
 
-                    <h5>2.1.2.4. Verify DNS assignment for localhost.</h5>
-                    <p>Using the "ping" command, We verified that the operating system correctly.</p>
-                    <img src="images/2_1_2_4_image.png" alt="Localhost ping resolution" width="800">
-
-                    <h5>2.1.2.5. Flush the DNS memory on your computer using ipconfig.</h5>
-                    <p>The local DNS cache was successfully cleared using the "ipconfig /flushdns" command.</p>
-                    <img src="images/2_1_2_5_image.png" alt="Flushing DNS in Windows" width="800">
-
-
-                    <h5>2.1.2.6. Change the hosts file such that when you enter ifeXX.com, the website msn.com will display (where XX is the number of your IFE group).</h5>
-                    <p>The Windows "hosts" file was successfully modified to map the custom domain ifeKL_1_8.com to the IP address of msn.com. Although Microsoft's servers returned a service error due to a Host header mismatch, the redirection itself was successful, proving the local DNS override worked.</p>
-                    <img src="images/2_1_2_6_image.png" alt="Modified hosts file redirecting to Microsoft servers" width="800">
-
-            <h3>2.2. Mail system</h3>
-
-                <h4>2.2.1. Configure Thunderbird to send and receive e-mails from any e-mail server.</h4>
-                <p>Thunderbird was configured to connect to an existing email, using the IMAP protocol on port 993.</p>
-                <img src="images/2_2_1_image.png" alt="Thunderbird Server Settings" width="800">
+<h4>1.2.4. E-mail structure: header, separator</h4>
+<p>An Internet e-mail message has a header followed by a body. Header fields are written as a field name, a colon and a value. Common fields include <code>From:</code>, <code>To:</code>, <code>Date:</code>, <code>Subject:</code>, <code>Cc:</code> and <code>Message-ID:</code>. A blank line separates the header from the body. An example:</p>
+<pre>From: maria@example.com
+To: ruben@example.net
+Subject: Example message
+Date: Mon, 12 Oct 2026 10:00:00 +0200
+ 
+Hello Ruben,
+This is the body of the message.</pre>
+<p>The header contains metadata and the body contains the message content. Servers also add their own <code>Received:</code> lines while the message travels, which makes it possible to trace its path. The envelope information used by SMTP (the arguments of <code>MAIL FROM</code> and <code>RCPT TO</code>) is distinct from the visible headers.</p>
 
 
-                <h4>2.2.2. Send an e-mail to:</h4>
+<h4>1.2.5. Attachments, e-mail coding, MIME</h4>
+<p><b>MIME</b> (Multipurpose Internet Mail Extensions) is an Internet standard that extends e-mail beyond plain ASCII text. It allows messages to carry rich media, non-English character sets, HTML formatting and file attachments. MIME headers describe the content type and the transfer encoding; common fields are <code>Content-Type</code>, <code>Content-Transfer-Encoding</code> and <code>Content-Disposition</code>. A message with several parts uses a multipart content type, and boundary strings separate the parts.</p>
+<ul>
+<li><b>Base64</b> represents binary attachment data as ASCII characters, so it can pass through systems that historically expected text.</li>
+<li><b>Quoted-printable</b> is another encoding, suited to mostly textual content with a few special characters.</li>
+</ul>
+<p>MIME encoding is not encryption: an encoded attachment is not confidential unless encryption is applied separately.</p>
+ 
 
-                    <h5>2.2.2.1. A non-existent mail server.</h5>
-                    <p>Sending an email to a non-existent domain fails because the DNS resolver cannot find an MX record for the destination.</p>
-                    <img src="images/2_2_2_1_image.png" alt="Non-existent mail server error" width="800">
-
-                    <h5>2.2.2.2. A non-existent user on an existent e-mail server.</h5>
-                    <p>The server accepted the connection but sent back a message because the requested username does not exist in its database.</p>
-                    <img src="images/2_2_2_2_image.png" alt="User unknown error message" width="800">
-
-                    <h5>2.2.2.3. A server which is not an e-mail server (you must receive and understand the response).</h5>
-                    <p>Sending an email to a domain not configured for mail services because the administrator indicated thet it does not accept emails.</p>
-                    <img src="images/2_2_2_3_image.png" alt="Null MX record error" width="800">
-
-                <h4>2.2.3. Using Wireshark, analyze the process of sending and receiving e-mails from Thunderbird. Identify all protocols involved in the process of sending and receiving e-mails.</h4>
-                <p>Using Wireshark, I captured the network traffic generated by Thunderbird while sending and receiving an email, filtering by ports 993 and 465/587.</p>
-                <img src="images/2_2_3_image.png" alt="Wireshark capture" width="800">
+<h4>1.2.6. Mailing lists, e-mail gate</h4>
+<p>A <b>mailing list</b> is a collection of e-mail addresses grouped together to send the same message or newsletter to many recipients at once. Instead of typing hundreds of addresses, the sender writes to a single list address, or uses an e-mail marketing platform, which automatically distributes the message to every subscriber.</p>
+<p>An <b>e-mail gate</b> (gateway) is a system that relays, filters, scans, routes or translates messages between mail systems, or between e-mail and another messaging environment. Gateways can enforce security policies, filter malware and spam, or connect separate organizations.</p>
 
 
-                <h4>2.2.4. Send an e-mail by connecting to an SMTP server using telnet.</h4>
-                <p>Due to the university server being down, an email was successfully sent via an alternative SMTP server using Telnet.</p>
-                <img src="images/2_2_4_image.png" alt="Successful Telnet SMTP communication" width="800">
+<h4>1.2.7. E-mail security, SSL, TLS, PGP, signature</h4>
+<p>E-mail security is the practice of protecting accounts, content and communications from unauthorized access, loss or compromise. It combines encryption, authentication and protocols that ensure privacy and trust. The key concepts are:</p>
+<ul>
+<li><b>SSL</b> (Secure Sockets Layer): an older protocol designed to create an encrypted link between a client and a server. It is deprecated and was replaced by TLS because of vulnerabilities.</li>
+<li><b>TLS</b> (Transport Layer Security): the modern successor of SSL. It encrypts e-mail data in transit, between a client and a server or between mail servers, after a handshake. TLS does not by itself guarantee end-to-end confidentiality across every server that handles a message.</li>
+<li><b>PGP</b> (Pretty Good Privacy): an encryption program that provides end-to-end encryption. When properly configured, it prevents intermediate mail servers from reading the protected content.</li>
+<li><b>Digital signature:</b> a mathematical technique that proves who sent a message and that it was not altered in transit. A signature does not encrypt the body on its own.</li>
+</ul>
+ 
 
+<h4>1.2.8. Spam, blacklists, graylists, spam filtering</h4>
+<ul>
+<li><b>Spam</b> is unwanted bulk messaging, such as junk e-mail or scams, sent to clutter inboxes, spread malware or trick users.</li>
+<li>A <b>blocklist</b> (historically blacklist) records IP addresses, domains or other identifiers with a poor reputation. Mail systems consult these lists when deciding whether to accept a message, but false positives are possible.</li>
+<li><b>Greylisting</b> temporarily rejects an e-mail from an unknown sender with a retry signal. Legitimate mail servers try again after a few minutes, while most spam bots do not retry. The cost is a short delay for first-time senders.</li>
+<li><b>Spam filtering</b> is the automated process of scanning, analyzing and blocking unwanted or dangerous e-mails before they reach the main inbox. It combines rules, content scans, blocklists and machine learning (such as Bayesian filters).</li>
+</ul>
+
+
+<h2>2. Practical part</h2>
+ 
+<h3>2.1. DNS system</h3>
+ 
+<h4>2.1.1. Display DNS settings on your computer using Control Panel and ipconfig. Find the Google DNS server and change DNS settings on your computer to use this server.</h4>
+<p>The DNS settings were modified in the Windows Control Panel, in the properties of the IPv4 protocol of the network adapter, to use the Google public DNS server <code>8.8.8.8</code>. After that we checked with the command <code>ipconfig /all</code>, which lists the DNS server in use.
+  <figure><img src="images/2_1_1_image.png" alt="ipconfig /all showing Google DNS" width="800"><figcaption>Output of <code>ipconfig /all</code> showing 8.8.8.8 as the DNS server.</figcaption></figure>
+
+<h4>2.1.2. Using dig, host, and nslookup, find the following information:</h4>
+<p>Although the original lab instructions suggest using <code>dig</code>, <code>host</code>, and <code>nslookup</code>, these tests were performed on a Windows environment. Since native <code>dig</code> and <code>host</code> utilities are not installed by default in Windows Command Prompt (CMD), <code>nslookup</code> was used as the primary, equivalent standard tool to query DNS records.</p>
+
+<h5>2.1.2.1. Domain names and corresponding IP addresses of computers in the lodz.pl domain.</h5>
+<p>Using <code>nslookup</code>, we queried the NS and MX records of <code>lodz.pl</code> to identify its infrastructure servers and their IP addresses. The NS records show which servers are authoritative for the zone, and the MX records show which servers receive its e-mail. Each of these names was resolved to an IP address through an A record.</p>
+<figure><img src="images/2_1_2_1_image.png" alt="NS and MX records for lodz.pl" width="800"><figcaption>NS and MX records of lodz.pl.</figcaption></figure>
+
+<h5>2.1.2.2. A computer somewhere in Europe, outside Łódź, and find all available information about the DNS settings of this computer.</h5>
+<p>We used <code>nslookup</code> to retrieve the IP address, the mail server and the name server records for the University of Oxford, in the United Kingdom. This gives a complete picture of how the domain is configured: where its web server is (A record), where its mail is delivered (MX) and which servers are authoritative (NS).</p>
+<figure><img src="images/2_1_2_2_image.png" alt="DNS settings for Oxford University" width="800"><figcaption>DNS records of the University of Oxford.</figcaption></figure>
+
+<h5>2.1.2.3. A computer somewhere outside Europe (e.g., an exotic country) and find all available information about the DNS settings of this computer.</h5>
+<p>We queried the A, MX and NS records for <code>mit.edu</code> to analyze the DNS configuration of a domain located outside Europe, in the United States. Only the TLD is different (<code>.edu</code>, a restricted TLD), so the resolution starts from the root and is referred to a different TLD server.</p>
+<figure><img src="images/2_1_2_3_image.png" alt="DNS settings for MIT" width="800"><figcaption>A, MX and NS records of mit.edu.</figcaption></figure>
+
+<h5>2.1.2.4. Verify DNS assignment for localhost.</h5>
+<p>Using the <code>ping</code> command, we verified that the operating system correctly resolves <code>localhost</code> to the IPv6 loopback address <code>::1</code> ( or <code>127.0.0.1</code> in IPv4).</p>
+<figure><img src="images/2_1_2_4_image.png" alt="Localhost ping resolution" width="800"><figcaption>Ping to localhost.</figcaption></figure>
+
+<h5>2.1.2.5. Flush the DNS memory on your computer using ipconfig.</h5>
+<p>The local DNS cache was cleared with the command <code>ipconfig /flushdns</code>. This removes the answers stored by the operating system, so the next query for any name has to be sent to the DNS server again.</p>
+<figure><img src="images/2_1_2_5_image.png" alt="Flushing DNS in Windows" width="800"><figcaption>Result of <code>ipconfig /flushdns</code>.</figcaption></figure>
+
+<h5>2.1.2.6. Change the hosts file such that when you enter ifeXX.com, the website msn.com will display (where XX is the number of your IFE group).</h5>
+<p>The Windows hosts file was modified to map the custom name <code>ifeKL_1_8.com</code> to the IP address of msn.com. Because the hosts file is checked before any DNS server, the computer resolved the custom name locally and connected to the Microsoft server. Microsoft’s server returned a service error because of a Host header mismatch. The error therefore confirms that the redirection worked, since the request did reach the Microsoft servers, and proves that the local override was applied.</p>
+<figure><img src="images/2_1_2_6_image.png" alt="Modified hosts file redirecting to Microsoft servers" width="800"><figcaption>Modified hosts file and the response from the Microsoft servers.</figcaption></figure>
+
+<h3>2.2. Mail system</h3>
+ 
+<h4>2.2.1. Configure Thunderbird to send and receive e-mails from any e-mail server.</h4>
+<p>Thunderbird was configured to connect to an existing e-mail account using the IMAP protocol on port 993, which is IMAP over TLS. We chose IMAP because it keeps the messages on the server and synchronizes folders between devices.</p>
+<figure><img src="images/2_2_1_image.png" alt="Thunderbird Server Settings" width="800"><figcaption>Thunderbird server settings.</figcaption></figure>
+
+<h4>2.2.2. Send an e-mail to:</h4>
+ 
+<h5>2.2.2.1. A non-existent mail server.</h5>
+<p>Sending an e-mail to a non-existent domain fails because the DNS resolver cannot find an MX record for the destination, so the sending server does not know where to deliver the message. The error is returned to the sender as a delivery failure.</p>
+<figure><img src="images/2_2_2_1_image.png" alt="Non-existent mail server error" width="800"><figcaption>Error for a non-existent mail server.</figcaption></figure>
+ 
+<h5>2.2.2.2. A non-existent user on an existent e-mail server.</h5>
+<p>In this case the domain exists, so the message reached the server. The server accepted the connection but sent back an error message because the requested username does not exist in its database. This corresponds to a permanent failure (a 5xx code).</p>
+<figure><img src="images/2_2_2_2_image.png" alt="User unknown error message" width="800"><figcaption>“User unknown” message from the server.</figcaption></figure>
+
+<h5>2.2.2.3. A server which is not an e-mail server (you must receive and understand the response).</h5>
+<p>We sent an e-mail to a domain that is not configured for mail services. The response shows that the administrator published a Null MX record, which explicitly states that the domain does not accept e-mail.</p>
+<figure><img src="images/2_2_2_3_image.png" alt="Null MX record error" width="800"><figcaption>Response for a domain with a Null MX record.</figcaption></figure>
+
+<h4>2.2.3. Using Wireshark, analyze the process of sending and receiving e-mails from Thunderbird. Identify all protocols involved in the process of sending and receiving e-mails.</h4>
+<p>Using Wireshark, we captured the network traffic generated by Thunderbird while sending and receiving an e-mail, filtering by ports 993 and 465/587. Port 993 carries IMAP over TLS for receiving, and ports 465 and 587 carry SMTP for sending, also encrypted. The protocols involved are DNS, TCP, TLS, IMAP and SMTP. Because of TLS, the content of the messages is not readable in the capture; only the handshake and encrypted data are visible.</p>
+<figure><img src="images/2_2_3_image.png" alt="Wireshark capture" width="800"><figcaption>Wireshark capture of the Thunderbird traffic.</figcaption></figure>
+
+<h4>2.2.4. Send an e-mail by connecting to an SMTP server using telnet.</h4>
+<p>Because the university server was down, the e-mail was sent through an alternative SMTP server using Telnet. The session followed the SMTP dialogue described in section 1.2.1: <code>EHLO</code>, <code>MAIL FROM</code>, <code>RCPT TO</code>, <code>DATA</code>, the message ended by a single dot, and <code>QUIT</code>, with the server confirming each step with its status codes. Telnet shows the protocol in plain text, which makes the client-server communication easy to follow.</p>
+<figure><img src="images/2_2_4_image.png" alt="Successful Telnet SMTP communication" width="800"><figcaption>SMTP session over Telnet.</figcaption></figure>
+
+</main>
 </body>
 </html>
