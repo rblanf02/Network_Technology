@@ -237,17 +237,19 @@ This is the body of the message.</pre>
  
 <h4>2.1.1. Display DNS settings on your computer using Control Panel and ipconfig. Find the Google DNS server and change DNS settings on your computer to use this server.</h4>
 <p>First, the original network DNS settings were checked using the command <code>ipconfig /all</code> before applying any changes.</p>
-<figure><img src="images/2_1_1_image1.png" alt="ipconfig /all showing original DNS settings" width="800"><figcaption>Output of <code>ipconfig /all</code> showing the original local DNS server.</figcaption></figure>
+<figure><img src="images/2_1_1_image2.png" alt="ipconfig /all showing original DNS settings" width="800"><figcaption>Output of <code>ipconfig /all</code> showing the original local DNS server.</figcaption></figure>
 
 <p>Then, the DNS settings were modified in the Windows Control Panel, in the properties of the IPv4 protocol of the network adapter, to use the Google public DNS server <code>8.8.8.8</code>. After that, we checked again with the command <code>ipconfig /all</code>, which lists the new DNS server in use.</p>
-<figure><img src="images/2_1_1_image2.png" alt="ipconfig /all showing Google DNS" width="800"><figcaption>Output of <code>ipconfig /all</code> showing 8.8.8.8 as the new DNS server.</figcaption></figure>
+<figure><img src="images/2_1_1_image1.png" alt="ipconfig /all showing Google DNS" width="800"><figcaption>Output of <code>ipconfig /all</code> showing 8.8.8.8 as the new DNS server.</figcaption></figure>
 
 <h4>2.1.2. Using dig, host, and nslookup, find the following information:</h4>
-<p>Although the original lab instructions suggest using <code>dig</code>, <code>host</code>, and <code>nslookup</code>, these tests were performed on a Windows environment. Since native <code>dig</code> and <code>host</code> utilities are not installed by default in Windows Command Prompt (CMD), <code>nslookup</code> was used as the primary, equivalent standard tool to query DNS records.</p>
-
+<p>Although the original lab instructions suggest using <code>dig</code>, <code>host</code>, and <code>nslookup</code>, these tests were mostly performed on a Windows environment using <code>nslookup</code>. Additionally, the utilities <code>dig</code> and <code>host</code> were used on a macOS environment to query DNS records.</p>
 <h5>2.1.2.1. Domain names and corresponding IP addresses of computers in the lodz.pl domain.</h5>
 <p>Using <code>nslookup</code>, we queried the NS and MX records of <code>lodz.pl</code> to identify its infrastructure servers and their IP addresses. The NS records show which servers are authoritative for the zone, and the MX records show which servers receive its e-mail. Each of these names was resolved to an IP address through an A record.</p>
-<figure><img src="images/2_1_2_1_image.png" alt="NS and MX records for lodz.pl" width="800"><figcaption>NS and MX records of lodz.pl.</figcaption></figure>
+<figure><img src="images/2_1_2_1_f.png" alt="Initial DNS records query for lodz.pl" width="800"></figure>
+<figure><img src="images/2_1_2_1_image.png" alt="MX records for lodz.pl and IP's" width="800"><figcaption>NS and MX records of lodz.pl.</figcaption></figure>
+<p>Furthermore, we also queried the domain using <code>dig</code> and <code>host</code> on macOS:</p>
+<figure><img src="images/2_1_2_1_mac.png" alt="dig and host queries for lodz.pl on macOS" width="800"><figcaption>Querying lodz.pl records using dig and host on macOS.</figcaption></figure>
 
 <h5>2.1.2.2. A computer somewhere in Europe, outside Łódź, and find all available information about the DNS settings of this computer.</h5>
 <p>We used <code>nslookup</code> to retrieve the IP address, the mail server and the name server records for the University of Oxford, in the United Kingdom. This gives a complete picture of how the domain is configured: where its web server is (A record), where its mail is delivered (MX) and which servers are authoritative (NS).</p>
