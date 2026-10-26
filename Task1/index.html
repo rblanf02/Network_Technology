@@ -236,8 +236,11 @@ This is the body of the message.</pre>
 <h3>2.1. DNS system</h3>
  
 <h4>2.1.1. Display DNS settings on your computer using Control Panel and ipconfig. Find the Google DNS server and change DNS settings on your computer to use this server.</h4>
-<p>The DNS settings were modified in the Windows Control Panel, in the properties of the IPv4 protocol of the network adapter, to use the Google public DNS server <code>8.8.8.8</code>. After that we checked with the command <code>ipconfig /all</code>, which lists the DNS server in use.
-  <figure><img src="images/2_1_1_image.png" alt="ipconfig /all showing Google DNS" width="800"><figcaption>Output of <code>ipconfig /all</code> showing 8.8.8.8 as the DNS server.</figcaption></figure>
+<p>First, the original network DNS settings were checked using the command <code>ipconfig /all</code> before applying any changes.</p>
+<figure><img src="images/2_1_1_image1.png" alt="ipconfig /all showing original DNS settings" width="800"><figcaption>Output of <code>ipconfig /all</code> showing the original local DNS server.</figcaption></figure>
+
+<p>Then, the DNS settings were modified in the Windows Control Panel, in the properties of the IPv4 protocol of the network adapter, to use the Google public DNS server <code>8.8.8.8</code>. After that, we checked again with the command <code>ipconfig /all</code>, which lists the new DNS server in use.</p>
+<figure><img src="images/2_1_1_image2.png" alt="ipconfig /all showing Google DNS" width="800"><figcaption>Output of <code>ipconfig /all</code> showing 8.8.8.8 as the new DNS server.</figcaption></figure>
 
 <h4>2.1.2. Using dig, host, and nslookup, find the following information:</h4>
 <p>Although the original lab instructions suggest using <code>dig</code>, <code>host</code>, and <code>nslookup</code>, these tests were performed on a Windows environment. Since native <code>dig</code> and <code>host</code> utilities are not installed by default in Windows Command Prompt (CMD), <code>nslookup</code> was used as the primary, equivalent standard tool to query DNS records.</p>
@@ -264,7 +267,9 @@ This is the body of the message.</pre>
 
 <h5>2.1.2.6. Change the hosts file such that when you enter ifeXX.com, the website msn.com will display (where XX is the number of your IFE group).</h5>
 <p>The Windows hosts file was modified to map the custom name <code>ifeKL_1_8.com</code> to the IP address of msn.com. Because the hosts file is checked before any DNS server, the computer resolved the custom name locally and connected to the Microsoft server. Microsoft’s server returned a service error because of a Host header mismatch. The error therefore confirms that the redirection worked, since the request did reach the Microsoft servers, and proves that the local override was applied.</p>
-<figure><img src="images/2_1_2_6_image.png" alt="Modified hosts file redirecting to Microsoft servers" width="800"><figcaption>Modified hosts file and the response from the Microsoft servers.</figcaption></figure>
+<figure><img src="images/2_1_2_6_image1.png" alt="Output of ping msn.com showing the target IP address." width="800"><figcaption>Modified hosts file and the response from the Microsoft servers.</figcaption></figure>
+<figure><img src="images/2_1_2_6_image2.png" alt="Modified Windows hosts file mapping ife37.com to the target IP address." width="800"><figcaption>Modified hosts file and the response from the Microsoft servers.</figcaption></figure>
+<figure><img src="images/2_1_2_6_image3.png" alt="Modified hosts file redirecting to Microsoft servers" width="800"><figcaption>Modified hosts file and the response from the Microsoft servers.</figcaption></figure>
 
 <h3>2.2. Mail system</h3>
  

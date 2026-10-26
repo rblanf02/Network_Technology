@@ -5,62 +5,188 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Network and Transport Layers Report</title>
     <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 20px; }
-        h1, h2, h3 { color: #333; }
-        p { margin-bottom: 15px; }
+:root { 
+  --ink: #000000; 
+  --muted: #000000; 
+  --accent: #000000; 
+  --line: #d5dbe3; 
+}
+
+* { box-sizing: border-box; }
+
+body { 
+  font-family: Arial, sans-serif; 
+  color: #000000; 
+  background: #ffffff; 
+  line-height: 1.7; 
+  font-size: 17px; 
+  margin: 0; 
+}
+
+main { 
+  max-width: 780px; 
+  margin: 0 auto; 
+  padding: 48px 24px 80px; 
+}
+
+h1, h2, h3, h4, h5 { 
+  font-family: Arial, sans-serif; 
+  color: #000000;
+  line-height: 1.3; 
+}
+
+h1 { 
+  font-size: 2rem; 
+  font-weight: bold; 
+  margin: 0 0 8px; 
+}
+
+.meta { 
+  color: #000000; 
+  font-family: Arial, sans-serif; 
+  font-size: .95rem; 
+  margin: 0 0 40px; 
+  padding-bottom: 20px; 
+  border-bottom: 2px solid #000000; 
+}
+
+h2 { 
+  font-size: 1.55rem; 
+  font-weight: bold; 
+  margin: 56px 0 8px; 
+  padding-bottom: 6px; 
+  border-bottom: 1px solid var(--line); 
+}
+
+h3 { 
+  font-size: 1.2rem; 
+  margin: 36px 0 4px; 
+}
+
+h4 { 
+  font-size: 1.05rem; 
+  margin: 28px 0 6px; 
+}
+
+h5 { 
+  font-size: .98rem; 
+  margin: 22px 0 4px; 
+  font-weight: 600; 
+}
+
+p { margin: 0 0 14px; }
+ul { margin: 0 0 14px; padding-left: 22px; }
+li { margin-bottom: 6px; }
+
+code { 
+  font-family: "Times New Roman", serif; 
+  font-size: .95em; 
+  background: transparent; 
+  padding: 1px 5px; 
+}
+
+pre { 
+  font-family: "Times New Roman", serif; 
+  font-size: .95rem; 
+  background: transparent; 
+  padding: 12px 16px; 
+  overflow-x: auto; 
+  margin: 0 0 16px; 
+  line-height: 1.5; 
+  border: 1px solid var(--line);
+}
+
+.tw { overflow-x: auto; margin: 14px 0 20px; }
+table { border-collapse: collapse; width: 100%; font-size: .95rem; }
+th, td { border: 1px solid var(--line); padding: 8px 12px; text-align: left; vertical-align: top; }
+th { background: transparent; font-family: Arial, sans-serif; font-weight: bold; }
+
+figure { margin: 14px 0 26px; }
+img { display: block; max-width: 100%; height: auto; border: 1px solid var(--line); }
+figcaption { font-size: .88rem; color: #000000; margin-top: 6px; font-style: italic; }
+
+.note { 
+  background: transparent; 
+  border: 1px solid var(--line); 
+  padding: 10px 16px; 
+  margin: 0 0 16px; 
+  font-size: .95rem; 
+}
     </style>
 </head>
 <body>
+  <main>
     <h1>Assignment - Network and Transport Layers</h1>
     
-    <h2>1. Theoretical part</h2>
-        <h3>1.1. Network and Transport Layer Protocols</h3>
+    <h2>Theoretical part</h2>
+    <h3>1.1. Network and Transport Layer Protocols</h3>
 
-            <h4>1.1.1. TCP protocol</h4>
-            <p>TCP is a set of rules for sending data over the internet. It acts like a careful delivery service. It makes sure every piece of data arrives safely. If a piece gets lost, TCP asks to send it again. It is very reliable but a bit slow.</p>
+        <h4>1.1.1. TCP protocol</h4>
+        <p>TCP is a set of rules for sending data over the internet. It acts like a careful delivery service. It makes sure every piece of data arrives safely. If a piece gets lost, TCP asks to send it again. It is very reliable but a bit slow.</p>
 
-            <h4>1.1.2. UDP protocol</h4>
-            <p>UDP is another way to send data. It is much faster than TCP. However, it does not check if the data arrives perfectly. If a piece gets lost, it just ignores it. It is great for live videos or online gaming where speed is the most important thing.</p>
+        <h4>1.1.2. UDP protocol</h4>
+        <p>UDP is another way to send data. It is much faster than TCP. However, it does not check if the data arrives perfectly. If a piece gets lost, it just ignores it. It is great for live videos or online gaming where speed is the most important thing.</p>
 
-            <h4>1.1.3. TCP protocol parameters</h4>
-            <p>These are the specific settings TCP uses to manage the data. They include the sender's address and the receiver's address. They also include special numbers to put the data back in the correct order. This helps prevent traffic jams on the network.</p>
+        <h4>1.1.3. TCP protocol parameters</h4>
+        <p>These are the specific settings TCP uses to manage the data. They include the sender's address and the receiver's address. They also include special numbers to put the data back in the correct order. This helps prevent traffic jams on the network.</p>
 
-            <h4>1.1.4. UDP protocol parameters</h4>
-            <p>UDP settings are much simpler. Because UDP does not track missing data, it uses fewer parameters. It mostly just includes where the data is coming from, where it is going, and the size of the message.</p>
+        <h4>1.1.4. UDP protocol parameters</h4>
+        <p>UDP settings are much simpler. Because UDP does not track missing data, it uses fewer parameters. It mostly just includes where the data is coming from, where it is going, and the size of the message.</p>
 
-            <h4>1.1.5. TCP connection</h4>
-            <p>A TCP connection is a secure, virtual link between two computers. Before they share any real information, they must agree to connect. They keep this link open until all the data is successfully shared.</p>
+        <h4>1.1.5. TCP connection</h4>
+        <p>A TCP connection is a secure, virtual link between two computers. Before they share any real information, they must agree to connect. They keep this link open until all the data is successfully shared.</p>
 
-            <h4>1.1.6. Three-way handshake</h4>
-            <p>This is the standard process used to establish a TCP connection between two devices. First, the sending computer requests to open a connection. Second, the receiving computer acknowledges this request and indicates it is also ready. Finally, the first computer confirms it has received the acknowledgment. After these three steps, the data transfer can begin.</p>
-            
-            <h4>1.1.7. Connection establishment</h4>
-            <p>This is the full process of preparing computers to talk to each other. It uses the three-way handshake we just mentioned. Once this setup is complete, the computers trust each other and data can flow safely.</p>
+        <h4>1.1.6. Three-way handshake</h4>
+        <p>This is the standard process used to establish a TCP connection between two devices. First, the sending computer requests to open a connection. Second, the receiving computer acknowledges this request and indicates it is also ready. Finally, the first computer confirms it has received the acknowledgment. After these three steps, the data transfer can begin.</p>
+        
+        <h4>1.1.7. Connection establishment</h4>
+        <p>This is the full process of preparing computers to talk to each other. It uses the three-way handshake we just mentioned. Once this setup is complete, the computers trust each other and data can flow safely.</p>
 
-            <h4>1.1.8. Connection release</h4>
-            <p>This is how computers end the conversation. When they finish sending all the files, they close the connection. This process frees up computer memory so they can connect with other devices later.</p>
+        <h4>1.1.8. Connection release</h4>
+        <p>This is how computers end the conversation. When they finish sending all the files, they close the connection. This process frees up computer memory so they can connect with other devices later.</p>
 
-            <h4>1.1.9. Ports</h4>
-            <p>Ports are like numbered doors on a computer. A computer can do many things at once, like downloading a file and showing a website. Ports help the computer know which door the data should enter. For example, websites usually enter through door number 80 or 443.</p>
+        <h4>1.1.9. Ports</h4>
+        <p>Ports are like numbered doors on a computer. A computer can do many things at once, like downloading a file and showing a website. Ports help the computer know which door the data should enter. For example, websites usually enter through door number 80 or 443.</p>
 
-    <h2>2. Practical part</h2>
-        <h3>2.1. Analysis of Network and Transport Layers</h3>
+<h2>2. Practical part</h2>
+    <h3>2.1. Analysis of Network and Transport Layers</h3>
 
-            <h4>2.1.1. Enter the www.google.com webpage using your preferred browser. Use netstat and Wireshark to identify ports which are used for data transmission (local and remote port numbers). Finish the connection (close the browser) and check the local port status.</h4>
-            <p>...</p>
-            <img src="images/.png" alt="Description of image" width="800">
+        <h4>2.1.1. Enter the www.google.com webpage using your preferred browser. Use netstat and Wireshark to identify ports which are used for data transmission (local and remote port numbers). Finish the connection (close the browser) and check the local port status.</h4>
+        <p>When opening www.google.com in a web browser, an HTTPS connection is established using the TCP protocol. The remote server listens on port 443. Netstat shows active connections in the ESTABLISHED state during data transfer, which then transition to TIME_WAIT status after the browser is closed to safely release the connection. Wireshark captures confirm the TCP traffic and TLS handshake over remote port 443.</p>
+        <figure>
+            <img src="images/2_1_1_image1.png" alt="Netstat output showing local and remote ports for HTTPS traffic" width="800">
+            <figcaption>Netstat output showing local and remote ports for HTTPS traffic</figcaption>
+        </figure>
+        <figure>
+            <img src="images/2_1_1_image2.png" alt="Wireshark packet capture filtered by TCP port 443" width="800">
+            <figcaption>Wireshark packet capture filtered by TCP port 443</figcaption>
+        </figure>
 
-            <h4>2.1.2. Copy a file from your local host to the studife.it.p.lodz.pl server using the FTP protocol. Use netstat and Wireshark to identify ports which are used for data transmission (local and remote port numbers). Finish the connection and check the local port status.</h4>
-            <p>...</p>
-            <img src="images/.png" alt="Description of image" width="800">
+        <h4>2.1.2. Copy a file from your local host to the studife.it.p.lodz.pl server using the FTP protocol. Use netstat and Wireshark to identify ports which are used for data transmission (local and remote port numbers). Finish the connection and check the local port status.</h4>
+        <p>Attempting to connect to studife.cti.p.lodz.pl using the standard FTP protocol on port 21 results in an ECONNREFUSED error (Connection refused by server). Running netstat confirms that no TCP connection is established on local or remote port 21. This behavior confirms that the server does not run FTP service on port 21 and requires secure protocols such as SFTP.</p>
+        <figure>
+            <img src="images/2_1_2_image.png" alt="FileZilla log showing connection refused on port 21" width="800">
+            <figcaption>FileZilla log showing connection refused on port 21</figcaption>
+        </figure>
 
-            <h4>2.1.3. Copy a file from your local host to the studife.it.p.lodz.pl server using the SCP or SFTP protocol. Use netstat and Wireshark to identify ports which are used for data transmission (local and remote port numbers). Finish the connection and check the local port status.</h4>
-            <p>...</p>
-            <img src="images/.png" alt="Description of image" width="800">
+        <h4>2.1.3. Copy a file from your local host to the studife.it.p.lodz.pl server using the SCP or SFTP protocol. Use netstat and Wireshark to identify ports which are used for data transmission (local and remote port numbers). Finish the connection and check the local port status.</h4>
+        <p>Transferring the file Hi.txt to the public_html directory on the server was performed using the SFTP protocol over SSH on remote TCP port 22 (212.51.220.81).</p>
+        <figure>
+            <img src="images/2_1_3_image1.png" alt="FileZilla interface showing successful file upload of Hi.txt via SFTP" width="800">
+            <figcaption>FileZilla interface showing successful file upload of Hi.txt via SFTP</figcaption>
+        </figure>
+        <figure>
+            <img src="images/2_1_3_image2.png" alt="Netstat output showing active SFTP connection on remote port 22" width="800">
+            <figcaption>Netstat output showing active SFTP connection on remote port 22</figcaption>
+        </figure>
 
-            <h4>2.1.4. Use Wireshark to check which protocol and port are used in the transport layer by the DNS protocol.</h4>
-            <p>...</p>
-            <img src="images/.png" alt="Description of image" width="800">
+        <h4>2.1.4. Use Wireshark to check which protocol and port are used in the transport layer by the DNS protocol.</h4>
+        <p>By checking the network capture in Wireshark, we can see that the DNS protocol uses UDP at the transport layer. The packet details confirm that all DNS requests and answers pass through port 53 on the server.</p>
+        <figure>
+            <img src="images/2_1_4_image.png" alt="Wireshark packet details highlighting DNS using UDP on port 53" width="800">
+            <figcaption>Wireshark packet details highlighting DNS using UDP on port 53</figcaption>
+        </figure>
 
+  </main>
 </body>
 </html>
