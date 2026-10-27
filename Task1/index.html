@@ -293,20 +293,22 @@ This is the body of the message.</pre>
 <h4>2.2.1. Configure Thunderbird to send and receive e-mails from any e-mail server.</h4>
 <p>As the assignment allows any mail server, we used a Gmail account. Thunderbird is a mail client so it connects to the servers of the provider and needs two of them because receiving and sending use different protocols.</p>
 <p>For receiving, the account uses <b>IMAP</b> with the server <code>imap.gmail.com</code> on port 993 and SSL/TLS. We chose IMAP because the messages stay on the server.</p>
-<p>For sending, the account uses <b>SMTP</b> with the server <code>smtp.gmail.com</code> [port and security shown in the second screenshot].</p>
+<p>For sending, the account uses <b>SMTP</b> with the server <code>smtp.gmail.com</code> on port 465 with SSL/TLS, and the same OAuth2 authentication as for receiving.</p>
+<figure><img src="images/2_2_1_image.png" alt="Thunderbird incoming server settings" width="800"><figcaption>Thunderbird incoming server settings.</figcaption></figure>
+<figure><img src="images/2_2_1_smtp_image.png" alt="Thunderbird outgoing server settings" width="800"><figcaption>Thunderbird outgoing server settings (SMTP).</figcaption></figure>
 
-<p>Thunderbird was configured to connect to an existing e-mail account using the IMAP protocol on port 993, which is IMAP over TLS. We chose IMAP because it keeps the messages on the server and synchronizes folders between devices.</p>
-<figure><img src="images/2_2_1_image.png" alt="Thunderbird Server Settings" width="800"><figcaption>Thunderbird server settings.</figcaption></figure>
 
 <h4>2.2.2. Send an e-mail to:</h4>
  
 <h5>2.2.2.1. A non-existent mail server.</h5>
-<p>Sending an e-mail to a non-existent domain fails because the DNS resolver cannot find an MX record for the destination, so the sending server does not know where to deliver the message. The error is returned to the sender as a delivery failure.</p>
+<p>The message was sent to <code>prueba@estedominioclaramentenoexiste12345.com</code>, a domain that does not exist. Thunderbird handed the message to the Gmail server, which then tried to deliver it. To know where to send mail for a domain, a mail server must first ask DNS for the MX record of that domain. In this case the DNS server answered <code>NXDOMAIN</code> (non-existent domain), so Gmail had no server to deliver the message to.</p>
+<p>A few moments later, Gmail sent a delivery failure message to the inbox, shown in the screenshot. It contains <code>Action: failed</code> and the status code <code>5.1.2</code>. The first digit (5) means a permanent error, so the server does not try again, and the rest of the code indicates that the destination address is wrong because the domain does not exist.</p>
 <figure><img src="images/2_2_2_1_image.png" alt="Non-existent mail server error" width="800"><figcaption>Error for a non-existent mail server.</figcaption></figure>
  
 <h5>2.2.2.2. A non-existent user on an existent e-mail server.</h5>
-<p>In this case the domain exists, so the message reached the server. The server accepted the connection but sent back an error message because the requested username does not exist in its database. This corresponds to a permanent failure (a 5xx code).</p>
-<figure><img src="images/2_2_2_2_image.png" alt="User unknown error message" width="800"><figcaption>“User unknown” message from the server.</figcaption></figure>
+<p>The message was sent to a made-up address at <code>gmail.com</code>, a domain that exists. The domain has MX records, so the message reached a real Google mail server. The difference with the previous case is that the failure happens later, when the server looks for the mailbox of the recipient and does not find it.</p>
+<p>The server answered with the SMTP reply <code>550 5.1.1 The email account that you tried to reach does not exist</code>, and Gmail forwarded it to our inbox as a delivery failure message, shown in the screenshot. Compared with the non-existent domain here the destination server was reached and was the one that rejected the address.</p>
+<figure><img src="images/2_2_2_2_image.png" alt="User unknown error message" width="800"><figcaption>Delivery failure message for a non-existent user.</figcaption></figure>
 
 <h5>2.2.2.3. A server which is not an e-mail server (you must receive and understand the response).</h5>
 <p>We sent an e-mail to a domain that is not configured for mail services. The response shows that the administrator published a Null MX record, which explicitly states that the domain does not accept e-mail.</p>
