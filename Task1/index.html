@@ -245,19 +245,32 @@ This is the body of the message.</pre>
 <h4>2.1.2. Using dig, host, and nslookup, find the following information:</h4>
 <p>Although the original lab instructions suggest using <code>dig</code>, <code>host</code>, and <code>nslookup</code>, these tests were mostly performed on a Windows environment using <code>nslookup</code>. Additionally, the utilities <code>dig</code> and <code>host</code> were used on a macOS environment to query DNS records.</p>
 <h5>2.1.2.1. Domain names and corresponding IP addresses of computers in the lodz.pl domain.</h5>
-<p>Using <code>nslookup</code>, we queried the NS and MX records of <code>lodz.pl</code> to identify its infrastructure servers and their IP addresses. The NS records show which servers are authoritative for the zone, and the MX records show which servers receive its e-mail. Each of these names was resolved to an IP address through an A record.</p>
+<p>Using <code>nslookup</code>, we queried the NS and MX records of <code>lodz.pl</code> to identify its infrastructure servers and their IP addresses. The NS records show which servers are authoritative for the zone, and the MX records show which servers receive its e-mail. Each of these names was resolved to an IP address through an A and AAAA record.</p>
 <figure><img src="images/2_1_2_1_f.png" alt="Initial DNS records query for lodz.pl" width="800"></figure>
 <figure><img src="images/2_1_2_1_image.png" alt="MX records for lodz.pl and IP's" width="800"><figcaption>NS and MX records of lodz.pl.</figcaption></figure>
 <p>Furthermore, we also queried the domain using <code>dig</code> and <code>host</code> on macOS:</p>
 <figure><img src="images/2_1_2_1_mac.png" alt="dig and host queries for lodz.pl on macOS" width="800"><figcaption>Querying lodz.pl records using dig and host on macOS.</figcaption></figure>
+<p>When inspecting the Name Server responses, we discarded <code>ns1.tpnet.pl</code> and <code>ns1.task.gda.pl</code> as internal hostnames because they do not end in <code>.lodz.pl</code>. Additionally, <code>mazurek.man.lodz.pl</code> returns two IP addresses because it runs a dual-stack configuration: an <b>A record</b> resolves to its IPv4 address (<code>212.191.2.15</code>) and an <b>AAAA record</b> resolves to its IPv6 address (<code>2001:b10:0:9::15</code>).</p>
+
 
 <h5>2.1.2.2. A computer somewhere in Europe, outside Łódź, and find all available information about the DNS settings of this computer.</h5>
-<p>We used <code>nslookup</code> to retrieve the IP address, the mail server and the name server records for the University of Oxford, in the United Kingdom. This gives a complete picture of how the domain is configured: where its web server is (A record), where its mail is delivered (MX) and which servers are authoritative (NS).</p>
-<figure><img src="images/2_1_2_2_image.png" alt="DNS settings for Oxford University" width="800"><figcaption>DNS records of the University of Oxford.</figcaption></figure>
+<p>We want to collect all the DNS information that is publicly available for the University of Oxford (<code>ox.ac.uk</code>). We are looking for the record types stored in DNS: the IPv4 and IPv6 addresses (A, AAAA), aliases (CNAME), the mail servers (MX), the authoritative name servers (NS), the text records (TXT), the zone parameters (SOA), the certificate authorization (CAA) and the reverse name of the IP address (PTR).</p>
+<p>First, <code>nslookup</code> was used to retrieve the IP address, the mail server and the name server records.</p>
+<figure><img src="images/2_1_2_2_image.png" alt="DNS settings for Oxford University" width="800"><figcaption>A, MX and NS records of ox.ac.uk.</figcaption></figure>
+<p>Then the remaining record types were queried with the <code>host</code> command.</p>
+<figure><img src="images/2_1_2_2_host_image.png" alt="host command results for ox.ac.uk" width="800"><figcaption>A, AAAA, CNAME, MX, NS, TXT, SOA, CAA and PTR records of ox.ac.uk</figcaption></figure>
+
+
 
 <h5>2.1.2.3. A computer somewhere outside Europe (e.g., an exotic country) and find all available information about the DNS settings of this computer.</h5>
-<p>We queried the A, MX and NS records for <code>mit.edu</code> to analyze the DNS configuration of a domain located outside Europe, in the United States. Only the TLD is different (<code>.edu</code>, a restricted TLD), so the resolution starts from the root and is referred to a different TLD server.</p>
+<p>We collect the DNS information for the Massachusetts Institute of Technology (<code>mit.edu</code>). We look for the same record types as for Oxford.</p>
+
+<p>First, using <code>nslookup</code>, we queried the A, MX and NS records. Only the TLD is different (<code>.edu</code>, a restricted TLD), so the resolution starts from the root and is referred to a different TLD server.</p>
 <figure><img src="images/2_1_2_3_image.png" alt="DNS settings for MIT" width="800"><figcaption>A, MX and NS records of mit.edu.</figcaption></figure>
+<p>Then the remaining record types were queried with the <code>host</code> command.</p>
+<figure><img src="images/2_1_2_3_host_image.png" alt="host command results for mit.edu" width="800"><figcaption>Records of mit.edu obtained with <code>host</code>.</figcaption></figure>
+<p>Compared with Oxford, MIT depends even more on external companies: its website, its name servers and its mail are all provided by third parties (Akamai and Microsoft). Oxford keeps its own six name servers, and only its mail and website are external. Also, MIT has IPv6 addresses and Oxford has none.</p>
+
 
 <h5>2.1.2.4. Verify DNS assignment for localhost.</h5>
 <p>Using the <code>ping</code> command, we verified that the operating system correctly resolves <code>localhost</code> to the IPv6 loopback address <code>::1</code> ( or <code>127.0.0.1</code> in IPv4).</p>
@@ -268,9 +281,11 @@ This is the body of the message.</pre>
 <figure><img src="images/2_1_2_5_image.png" alt="Flushing DNS in Windows" width="800"><figcaption>Result of <code>ipconfig /flushdns</code>.</figcaption></figure>
 
 <h5>2.1.2.6. Change the hosts file such that when you enter ifeXX.com, the website msn.com will display (where XX is the number of your IFE group).</h5>
-<p>The Windows hosts file was modified to map the custom name <code>ifeKL_1_8.com</code> to the IP address of msn.com. Because the hosts file is checked before any DNS server, the computer resolved the custom name locally and connected to the Microsoft server. Microsoft’s server returned a service error because of a Host header mismatch. The error therefore confirms that the redirection worked, since the request did reach the Microsoft servers, and proves that the local override was applied.</p>
-<figure><img src="images/2_1_2_6_image1.png" alt="Output of ping msn.com showing the target IP address." width="800"><figcaption>Modified hosts file and the response from the Microsoft servers.</figcaption></figure>
+<p>We first check for the IP address of <code>msn.com</code> using host.</p>
+<figure><img src="images/2_1_2_6_host.png" alt="Output of host msn.com showing the IP address." width="800"><figcaption>IP addres of msn.com.</figcaption></figure>
+<p>The <code>hosts</code> file of Windows is consulted before any DNS server. For this reason, we modified it to map the custom name <code>ife36.com</code> to the IP address of msn.com. The new mapping is added at the end of the file.</p>
 <figure><img src="images/2_1_2_6_image2.png" alt="Modified Windows hosts file mapping ife37.com to the target IP address." width="800"><figcaption>Modified hosts file and the response from the Microsoft servers.</figcaption></figure>
+<p>Because the hosts file is checked before any DNS server, the computer resolved the custom name locally and connected to the Microsoft server. Microsoft’s server returned a service error because of a Host header mismatch. The error therefore confirms that the redirection worked, since the request did reach the Microsoft servers, and proves that the local override was applied.</p>
 <figure><img src="images/2_1_2_6_image3.png" alt="Modified hosts file redirecting to Microsoft servers" width="800"><figcaption>Modified hosts file and the response from the Microsoft servers.</figcaption></figure>
 
 <h3>2.2. Mail system</h3>
