@@ -291,6 +291,10 @@ This is the body of the message.</pre>
 <h3>2.2. Mail system</h3>
  
 <h4>2.2.1. Configure Thunderbird to send and receive e-mails from any e-mail server.</h4>
+<p>As the assignment allows any mail server, we used a Gmail account. Thunderbird is a mail client so it connects to the servers of the provider and needs two of them because receiving and sending use different protocols.</p>
+<p>For receiving, the account uses <b>IMAP</b> with the server <code>imap.gmail.com</code> on port 993 and SSL/TLS. We chose IMAP because the messages stay on the server.</p>
+<p>For sending, the account uses <b>SMTP</b> with the server <code>smtp.gmail.com</code> [port and security shown in the second screenshot].</p>
+
 <p>Thunderbird was configured to connect to an existing e-mail account using the IMAP protocol on port 993, which is IMAP over TLS. We chose IMAP because it keeps the messages on the server and synchronizes folders between devices.</p>
 <figure><img src="images/2_2_1_image.png" alt="Thunderbird Server Settings" width="800"><figcaption>Thunderbird server settings.</figcaption></figure>
 
