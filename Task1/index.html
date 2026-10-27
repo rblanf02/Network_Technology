@@ -273,16 +273,16 @@ This is the body of the message.</pre>
 
 
 <h5>2.1.2.4. Verify DNS assignment for localhost.</h5>
-<p>Using the <code>ping</code> command, we verified that the operating system correctly resolves <code>localhost</code> to the IPv6 loopback address <code>::1</code> ( or <code>127.0.0.1</code> in IPv4).</p>
-<figure><img src="images/2_1_2_4_image.png" alt="Localhost ping resolution" width="800"><figcaption>Ping to localhost.</figcaption></figure>
+<p>Using the <code>ping</code> command, we verified that the operating system correctly resolves <code>localhost</code> to the loopback address. Additionally, we attempted to query it using <code>nslookup localhost</code>; the external DNS server returns a non-existent domain error because <code>localhost</code> is managed internally by the local operating system and is not published on external DNS servers.</p>
+<figure><img src="images/2_1_2_4_image.png" alt="Localhost ping and nslookup resolution" width="800"><figcaption>Results of querying localhost using both ping and nslookup.</figcaption></figure>
 
 <h5>2.1.2.5. Flush the DNS memory on your computer using ipconfig.</h5>
 <p>The local DNS cache was cleared with the command <code>ipconfig /flushdns</code>. This removes the answers stored by the operating system, so the next query for any name has to be sent to the DNS server again.</p>
 <figure><img src="images/2_1_2_5_image.png" alt="Flushing DNS in Windows" width="800"><figcaption>Result of <code>ipconfig /flushdns</code>.</figcaption></figure>
 
-<h5>2.1.2.6. Change the hosts file such that when you enter ifeXX.com, the website msn.com will display (where XX is the number of your IFE group).</h5>
-<p>We first check for the IP address of <code>msn.com</code> using host.</p>
-<figure><img src="images/2_1_2_6_host.png" alt="Output of host msn.com showing the IP address." width="800"><figcaption>IP addres of msn.com.</figcaption></figure>
+<h5>2.1.2.6. Change the hosts file such that when you enter ife37.com, the website msn.com will display.</h5>
+<p>We first check for the IP address of <code>msn.com</code> using <code>nslookup</code>.</p>
+<figure><img src="images/2_1_2_6_image1.png" alt="Output of nslookup msn.com showing the IP address." width="800"><figcaption>IP address of msn.com obtained with nslookup.</figcaption></figure>
 <p>The <code>hosts</code> file of Windows is consulted before any DNS server. For this reason, we modified it to map the custom name <code>ife36.com</code> to the IP address of msn.com. The new mapping is added at the end of the file.</p>
 <figure><img src="images/2_1_2_6_image2.png" alt="Modified Windows hosts file mapping ife37.com to the target IP address." width="800"><figcaption>Modified hosts file and the response from the Microsoft servers.</figcaption></figure>
 <p>Because the hosts file is checked before any DNS server, the computer resolved the custom name locally and connected to the Microsoft server. Microsoft’s server returned a service error because of a Host header mismatch. The error therefore confirms that the redirection worked, since the request did reach the Microsoft servers, and proves that the local override was applied.</p>
