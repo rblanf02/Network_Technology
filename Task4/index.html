@@ -120,25 +120,49 @@ figcaption { font-size: .88rem; color: #000000; margin-top: 6px; font-style: ita
         
 1.      <h2>Theoretical part</h2>
         <h3>1.1. Ethernet standards for physical layer, Ethernet limits, Ethernet frame</h3>
-        <p>...</p>
+        <ul>
+          <li><strong>Ethernet standards for physical layer:</strong> Rules that define how data is transmitted over physical cables (e.g., 10BASE-T, 100BASE-TX, 1000BASE-T dictate speed and cable types).</li>
+          <li><strong>Ethernet limits:</strong> Physical constraints, primarily cable length; for example, standard twisted-pair copper cables are limited to 100 meters before the signal degrades.</li>
+          <li><strong>Ethernet frame:</strong> The data packet at the Data Link Layer, containing the source and destination MAC addresses, the data payload, and an error-checking sequence (FCS).</li>
+        </ul>
 
         <h3>1.2. MAC address, broadcasting</h3>
-        <p>...</p>
+        <ul>
+          <li><strong>MAC address:</strong> A unique 48-bit hardware identifier assigned to a network adapter by the manufacturer.</li>
+          <li><strong>Broadcasting:</strong> The process of sending a single message to all devices on a local network simultaneously, using a special broadcast address (FF:FF:FF:FF:FF:FF).</li>
+        </ul>
 
         <h3>1.3. The difference between hub, switch, and router</h3>
-        <p>...</p>
+        <ul>
+          <li><strong>Hub:</strong> A basic Layer 1 device that receives data on one port and blindly repeats it to all other ports, causing unnecessary traffic.</li>
+          <li><strong>Switch:</strong> A smart Layer 2 device that learns the MAC addresses of connected devices and forwards data only to the specific port where the destination is located.</li>
+          <li><strong>Router:</strong> A Layer 3 device that connects completely different networks together and forwards traffic based on IP addresses.</li>
+        </ul>
 
         <h3>1.4. CSMA/CD, collision, half and full duplex</h3>
-        <p>...</p>
+        <ul>
+          <li><strong>CSMA/CD:</strong> (Carrier Sense Multiple Access with Collision Detection) A protocol used in older Ethernet networks to manage shared cables and avoid data crashes.</li>
+          <li><strong>Collision:</strong> Occurs when two devices transmit data on the same shared medium at the exact same time, corrupting the signal.</li>
+          <li><strong>Half duplex:</strong> A communication mode where devices can send or receive data, but not at the same time.</li>
+          <li><strong>Full duplex:</strong> A communication mode where devices can send and receive simultaneously on separate wire pairs, completely eliminating collisions.</li>
+        </ul>
 
         <h3>1.5. ARP request, detecting doubled IP address</h3>
-        <p>...</p>
+        <ul>
+          <li><strong>ARP request:</strong> A network message that asks "Who has this IP address?" in order to find the corresponding physical MAC address.</li>
+          <li><strong>Detecting doubled IP address:</strong> Done by sending a "Gratuitous ARP" for the device's own IP when it connects; if another machine replies, a duplicated IP address conflict is detected.</li>
+        </ul>
 
         <h3>1.6. BOOTP, DHCP</h3>
-        <p>...</p>
+        <ul>
+          <li><strong>BOOTP:</strong> An older network protocol that allowed devices to automatically obtain an IP address during the boot process.</li>
+          <li><strong>DHCP:</strong> (Dynamic Host Configuration Protocol) The modern evolution of BOOTP that dynamically leases IP addresses from a pool and automatically provides other settings like the default gateway.</li>
+        </ul>
 
         <h3>1.7. VLANs</h3>
-        <p>...</p>
+        <ul>
+            <li><strong>VLANs:</strong> (Virtual Local Area Networks) A technology that logically divides a single physical switch into multiple isolated networks, improving security and reducing broadcast traffic.</li>
+        </ul>
 
         <h2>2. Practical part</h2>
         <h3>2.1. Find your MAC address using ipconfig, and the MAC address of your default gateway using Wireshark.</h3>
