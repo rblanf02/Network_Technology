@@ -118,7 +118,7 @@ figcaption { font-size: .88rem; color: #000000; margin-top: 6px; font-style: ita
     <main>
         <h1>Assignment - Data Link Layer</h1>
         
-1.      <h2>Theoretical part</h2>
+        <h2>1. Theoretical part</h2>
         <h3>1.1. Ethernet standards for physical layer, Ethernet limits, Ethernet frame</h3>
         <ul>
           <li><strong>Ethernet standards for physical layer:</strong> Rules that define how data is transmitted over physical cables (e.g., 10BASE-T, 100BASE-TX, 1000BASE-T dictate speed and cable types).</li>
@@ -166,52 +166,70 @@ figcaption { font-size: .88rem; color: #000000; margin-top: 6px; font-style: ita
 
         <h2>2. Practical part</h2>
         <h3>2.1. Find your MAC address using ipconfig, and the MAC address of your default gateway using Wireshark.</h3>
-        <p>...</p>
+        <p>Using <code>ipconfig /all</code>, the local adapter's MAC address (<code>88-F4-DA-DE-AF-5D</code>) and the default gateway IPv4 address (<code>10.239.192.1</code>) were identified. Capturing an ICMP echo reply from the gateway in Wireshark revealed its corresponding physical address (<code>00:fe:ed:c0:ff:ee</code>).</p>
         <figure>
-            <img src="images/.png" alt="Description of image" width="800">
-            <figcaption>Description of image</figcaption>
+            <img src="images/2_1_image1.png" alt="Local MAC address and default gateway IP via ipconfig /all" width="800">
+            <figcaption>Figure 2.1a: Local MAC address and default gateway IPv4 obtained via ipconfig /all.</figcaption>
+        </figure>
+        <figure>
+            <img src="images/2_1_image2.png" alt="Default gateway MAC address inspected in Wireshark" width="800">
+            <figcaption>Figure 2.1b: Default gateway MAC address (00:fe:ed:c0:ff:ee) verified using Wireshark.</figcaption>
         </figure>
 
         <h3>2.2. Find the producer of your network adapter.</h3>
-        <p>...</p>
+        <p>Looking up the MAC address OUI prefix (<code>88:F4:DA</code>) in the Wireshark OUI database identified the network adapter producer as Intel Corporate</p>
         <figure>
-            <img src="images/.png" alt="Description of image" width="800">
-            <figcaption>Description of image</figcaption>
+            <img src="images/2_2_image.png" alt="OUI lookup result identifying Intel Corporate as the network adapter producer" width="800">
+            <figcaption>Figure 2.2: Network adapter manufacturer (Intel Corporate) identified via the MAC address OUI prefix (88:F4:DA).</figcaption>
         </figure>
 
         <h3>2.3. Flush the ARP cache.</h3>
-        <p>...</p>
+        <p>The ARP cache for interface <code>10.239.199.240</code> was inspected with <code>arp -a</code>, flushed using <code>arp -d * 10.239.199.240</code>, and verified again with <code>arp -a</code> to confirm the removal of dynamic entries.</p>
         <figure>
-            <img src="images/.png" alt="Description of image" width="800">
-            <figcaption>Description of image</figcaption>
+            <img src="images/2_3_image.png" alt="ARP cache before and after flushing" width="800">
+            <figcaption>Figure 2.3: Local ARP table before and after flushing the ARP cache.</figcaption>
         </figure>
 
         <h3>2.4. Set the same IP address on two different hosts in the lab and detect it using an ARP request.</h3>
-        <p>...</p>
+        <p>When assigning <code>10.199.46.124</code> to the laptop while another host already held that address, the laptop sent an ARP Probe (packet 2623) and received an ARP reply from <code>26:e6:60:42:33:fe</code>. Detecting the duplicate IP conflict, Windows aborted the assignment and fell back to an APIPA address (<code>169.254.128.58</code>).</p>
         <figure>
-            <img src="images/.png" alt="Description of image" width="800">
-            <figcaption>Description of image</figcaption>
+            <img src="images/2_4_image.png" alt="Wireshark detecting duplicate IP address via ARP Probe and Reply" width="800">
+            <figcaption>Figure 2.4: Duplicate IPv4 address (10.199.46.124) detected via ARP Probe and ARP Reply in Wireshark.</figcaption>
         </figure>
 
         <h3>2.5. Using Wireshark, save the packets required to obtain an IP address through DHCP.</h3>
-        <p>...</p>
+        <p>DHCP traffic was captured in Wireshark using the <code>dhcp</code> display filter. The four-packet DORA sequence (Discover, Offer, Request, and ACK) required to obtain the IPv4 lease was isolated.</p>
         <figure>
-            <img src="images/.png" alt="Description of image" width="800">
-            <figcaption>Description of image</figcaption>
+            <img src="images/2_5_image.png" alt="Wireshark capture of DHCP DORA packets" width="800">
+            <figcaption>Figure 2.5: Wireshark capture showing the four DHCP DORA packets (Discover, Offer, Request, ACK)</figcaption>
         </figure>
 
         <h3>2.6. Release and renew your IP address using ipconfig.</h3>
-        <p>...</p>
+        <p>The active DHCP lease was released using <code>ipconfig /release</code>, clearing the Wi-Fi adapter's IPv4 configuration, and subsequently renewed via <code>ipconfig /renew</code> to obtain <code>10.239.199.240</code>.</p>
         <figure>
-            <img src="images/.png" alt="Description of image" width="800">
-            <figcaption>Description of image</figcaption>
+            <img src="images/2_6_image1.png" alt="Releasing IPv4 address using ipconfig /release" width="800">
+            <figcaption>Figure 2.6a: Command Prompt output after running <code>ipconfig /release</code>.</figcaption>
+        </figure>
+        <figure>
+            <img src="images/2_6_image2.png" alt="Renewing IPv4 address using ipconfig /renew" width="800">
+            <figcaption>Figure 2.6b: Command Prompt output after running <code>ipconfig /renew</code>.</figcaption>
         </figure>
 
         <h3>2.7. Change the MAC address of a computer in the lab to the same as the MAC address of another computer in the lab and verify the IP address obtained.</h3>
-        <p>...</p>
+        <p>First, the physical address (<code>de:60:5e:65:75:62</code>) and active IPv4 lease (<code>10.239.198.166</code>) of a second host on the same Wi-Fi network were recorded, after which its wireless interface was disconnected to avoid layer-2 address collisions.</p>
+        <p>Next, the laptop's Intel Wi-Fi 6E AX211 adapter MAC address was modified via PowerShell registry configuration (<code>NetworkAddress = DE605E657562</code>) and the interface was restarted.</p>
+        <p>Finally, running <code>ipconfig /all</code> verified that the adapter adopted the cloned MAC address (<code>DE-60-5E-65-75-62</code>) and that the DHCP server (<code>10.239.192.1</code>) assigned the exact same IPv4 address (<code>10.239.198.166</code>), as DHCP lease tables bind IP assignments to the client's hardware MAC address.</p>
         <figure>
-            <img src="images/.png" alt="Description of image" width="800">
-            <figcaption>Description of image</figcaption>
+            <img src="images/2_7_image1.png" alt="Second host network settings showing MAC address de:60:5e:65:75:62 and IPv4 10.239.198.166" width="350">
+            <figcaption>Figure 2.7a: Original MAC address (<code>de:60:5e:65:75:62</code>) and assigned IPv4 lease (<code>10.239.198.166</code>) of the second host before disconnecting it from the network.</figcaption>
+        </figure>
+        <figure>
+            <img src="images/2_7_image2.png" alt="PowerShell commands setting NetworkAddress to DE605E657562 and restarting Wi-Fi adapter" width="800">
+            <figcaption>Figure 2.7b: PowerShell commands used to configure the cloned MAC address (<code>DE605E657562</code>) on the Intel Wi-Fi 6E AX211 adapter and restart the interface.</figcaption>
+        </figure>
+        <figure>
+            <img src="images/2_7_image3.png" alt="ipconfig /all output confirming cloned MAC address DE-60-5E-65-75-62 and IPv4 10.239.198.166" width="800">
+            <figcaption>Figure 2.7c: Verification via <code>ipconfig /all</code> showing the physical address (<code>DE-60-5E-65-75-62</code>) and the identical IPv4 lease (<code>10.239.198.166</code>) obtained from the DHCP server.</figcaption>
         </figure>
 
     </main>
