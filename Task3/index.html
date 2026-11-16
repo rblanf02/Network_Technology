@@ -122,34 +122,55 @@ figcaption { font-size: .88rem; color: #000000; margin-top: 6px; font-style: ita
         <h3>1.1. Network Layer Concepts</h3>
 
             <h4>1.1.1. IP address</h4>
-            <p>...</p>
+            <p>An IP address is a unique number that identifies a device (more precisely, a network interface) in a network. An IPv4 address has 32 bits and is written as four decimal numbers separated by dots, for example 192.168.1.10. It has two parts: the network part, which identifies the network, and the host part, which identifies the device inside that network.</p>
 
             <h4>1.1.2. Network subnets</h4>
-            <p>...</p>
+            <p>A subnet is a smaller logical network created by dividing a bigger one. This is done by using some bits of the host part to identify the subnet. Subnetting reduces broadcast traffic, makes the network easier to organise and secure, and avoids wasting IP addresses.</p>
 
             <h4>1.1.3. Network classes</h4>
-            <p>...</p>
+            <p>The original IPv4 design divided addresses into classes according to the first octet:</p>
+<ul>
+    <li>Class A: 1–126, default mask 255.0.0.0 (/8), for very large networks.</li>
+    <li>Class B: 128–191, default mask 255.255.0.0 (/16), for medium networks.</li>
+    <li>Class C: 192–223, default mask 255.255.255.0 (/24), for small networks.</li>
+    <li>Class D: 224–239, used for multicast.</li>
+    <li>Class E: 240–255, reserved for experimental use.</li>
+</ul>
+<p>The range 127.x.x.x is reserved for loopback. Today classes are mostly replaced by CIDR, which allows masks of any length.</p>
+
 
             <h4>1.1.4. Network mask</h4>
-            <p>...</p>
+            <p>The network mask is a 32-bit number that shows which part of an IP address belongs to the network and which part belongs to the host. The network bits are set to 1 and the host bits to 0. For example, 255.255.255.0 (or /24) means that the first 24 bits are the network. A device applies the mask to an IP address to obtain its network address and to decide whether another device is in the same network.</p>
+
 
             <h4>1.1.5. Routing table</h4>
-            <p>...</p>
+            <p>A routing table is a list of rules stored in a host or a router that tells it where to send each packet. Each entry contains a destination network, its mask, the next hop (gateway), the outgoing interface and a metric (cost). When a packet arrives, the device chooses the entry with the most specific match for the destination address.</p>
+
 
             <h4>1.1.6. Default gateway</h4>
-            <p>...</p>
+            <p>The default gateway is the router that a device uses when the destination is not in its own network. It is the "exit door" to other networks, such as the Internet. In the routing table it appears as the default route 0.0.0.0/0.</p>
+
 
             <h4>1.1.7. Broadcast</h4>
-            <p>...</p>
+            <p>A broadcast address is used to send a packet to all devices in a network at once. In a subnet it is the last address, where all host bits are 1. For example, in 192.168.1.0/24 the broadcast address is 192.168.1.255. The address 255.255.255.255 is the limited broadcast, which stays inside the local network.</p>
+
 
             <h4>1.1.8. Subnet address</h4>
-            <p>...</p>
+            <p>The subnet address (or network address) identifies the subnet itself. It is the first address of the range, where all host bits are 0, for example 192.168.1.0 for the network 192.168.1.0/24. It cannot be assigned to a device.</p>
+
 
             <h4>1.1.9. Private network address</h4>
-            <p>...</p>
+            <p>Private addresses are ranges reserved for internal networks that are not routed on the public Internet (RFC 1918):</p>
+<ul>
+    <li>10.0.0.0 – 10.255.255.255 (10.0.0.0/8)</li>
+    <li>172.16.0.0 – 172.31.255.255 (172.16.0.0/12)</li>
+    <li>192.168.0.0 – 192.168.255.255 (192.168.0.0/16)</li>
+</ul>
+<p>Any organisation can use them freely, and the same addresses can be reused in many different private networks.</p>
+
 
             <h4>1.1.10. Network address translation</h4>
-            <p>...</p>
+            <p>NAT is a technique used by routers to connect private networks to the Internet. The router replaces the private source address of outgoing packets with its own public address and stores the translation in a table. When the reply returns, it uses the table to send it to the correct internal device. In its most common form (PAT), it also changes the port number so many devices can share one public IP. NAT saves public IPv4 addresses and hides the internal structure of the network.</p>
 
         <h2>2. Practical part</h2>
         <h3>2.1. Use ping, pathping, and tracert to the following hosts:</h3>
