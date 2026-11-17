@@ -175,6 +175,11 @@ Following the instructor's clarification to use any available FTP server to obse
             <img src="images/2_1_2_m1.png" alt="Local FTP server connection" width="800">
             <figcaption>Local FTP server connection</figcaption>
         </figure>
+
+        <figure>
+            <img src="images/2_1_2_m11.png" alt="Wireshark Local FTP server connection traffic" width="800">
+            <figcaption>Wireshark Local FTP server connection traffic</figcaption>
+        </figure>
         <p>This screenshot shows the FTP control connection captured on my Loopback interface (127.0.0.1) between my local client port (50201) and my local server port (2121). It captures the initial TCP 3-way handshake (SYN, SYN-ACK, ACK) followed by the exchange of FTP login and file upload commands (PSH, ACK).
 </p>
       <p>During the active session, netstat -an -p tcp | grep 2121 showed the control connection in the ESTABLISHED state. Once the file transfer completed, the data connection closed immediately. After terminating the FTP session with the bye command (sending a TCP FIN packet), re-running netstat showed that the local client port transitioned to the TIME_WAIT state—ensuring any delayed packets in the network are properly handled—before finally releasing the socket and returning to CLOSED.
