@@ -200,7 +200,7 @@ figcaption { font-size: .88rem; color: #000000; margin-top: 6px; font-style: ita
         </figure>
 
         <h4>2.1.4. Use Wireshark to check which protocol and port are used in the transport layer by the DNS protocol.</h4>
-        <p>By checking the network capture in Wireshark, we can see that the DNS protocol uses UDP at the transport layer. The packet details confirm that all DNS requests and answers pass through port 53 on the server.</p>
+        <p>By checking the network capture in Wireshark (using the display filter dns), we can see that the DNS protocol uses UDP at the transport layer. The packet details show that each DNS query is sent to port 53 on the DNS server, and the response returns from port 53 to that same local port. UDP is used because DNS messages are small and a fast, connectionless exchange is more efficient than establishing a TCP connection. DNS can also use TCP on port 53 for large responses or zone transfers, but standard queries use UDP</p>
         <figure>
             <img src="images/2_1_4_image.png" alt="Wireshark packet details highlighting DNS using UDP on port 53" width="800">
             <figcaption>Wireshark packet details highlighting DNS using UDP on port 53</figcaption>
