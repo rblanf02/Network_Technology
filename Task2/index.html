@@ -163,12 +163,27 @@ figcaption { font-size: .88rem; color: #000000; margin-top: 6px; font-style: ita
         </figure>
 
         <h4>2.1.2. Copy a file from your local host to the studife.it.p.lodz.pl server using the FTP protocol. Use netstat and Wireshark to identify ports which are used for data transmission (local and remote port numbers). Finish the connection and check the local port status.</h4>
-        <p>Attempting to connect to studife.cti.p.lodz.pl using the standard FTP protocol on port 21 results in an ECONNREFUSED error (Connection refused by server). Running netstat confirms that no TCP connection is established on local or remote port 21. This behavior confirms that the server does not run FTP service on port 21 and requires secure protocols such as SFTP.</p>
+        <p>Initially, we attempted to connect to the university servers (studife.it.p.lodz.pl and studife.cti.p.lodz.pl) using the standard FTP protocol on port 21. However, the connection failed immediately: studife.it.p.lodz.pl dropped the session with a 421 Service not available error, while studife.cti.p.lodz.pl returned an ECONNREFUSED (Connection refused) error. Checking netstat confirmed that no TCP connection was established on port 21. This behavior proves that the FTP daemon is disabled on the university servers for security reasons (as FTP transmits credentials and data in plaintext), requiring encrypted alternatives like SSH/SFTP instead.
+Following the instructor's clarification to use any available FTP server to observe the protocol's behavior, we deployed a local FTP server using Python (pyftpdlib) listening on 127.0.0.1 at TCP port 2121 (used instead of port 21 to run in user space without root privileges). We then connected from our local FTP client, enabled passive mode (passive), and uploaded a sample file (test_ftp.txt) using the put command
+</p>
         <figure>
             <img src="images/2_1_2_image.png" alt="FileZilla log showing connection refused on port 21" width="800">
             <figcaption>FileZilla log showing connection refused on port 21</figcaption>
         </figure>
 
+        <figure>
+            <img src="images/2_1_2_m1.png" alt="Local FTP server connection" width="800">
+            <figcaption>FTP control connection</figcaption>
+        </figure>
+        <p>This screenshot shows the FTP control connection captured on my Loopback interface (127.0.0.1) between my local client port (50201) and my local server port (2121). It captures the initial TCP 3-way handshake (SYN, SYN-ACK, ACK) followed by the exchange of FTP login and file upload commands (PSH, ACK).
+</p>
+      <p>During the active session, netstat -an -p tcp | grep 2121 showed the control connection in the ESTABLISHED state. Once the file transfer completed, the data connection closed immediately. After terminating the FTP session with the bye command (sending a TCP FIN packet), re-running netstat showed that the local client port transitioned to the TIME_WAIT state—ensuring any delayed packets in the network are properly handled—before finally releasing the socket and returning to CLOSED.
+</p>
+        <figure>
+            <img src="images/2_1_2_m2.png" alt="Netstat during and after FTP server conection" width="800">
+            <figcaption>Netsat</figcaption>
+        </figure>
+        
         <h4>2.1.3. Copy a file from your local host to the studife.it.p.lodz.pl server using the SCP or SFTP protocol. Use netstat and Wireshark to identify ports which are used for data transmission (local and remote port numbers). Finish the connection and check the local port status.</h4>
         <p>Transferring the file Hi.txt to the public_html directory on the server was performed using the SFTP protocol over SSH on remote TCP port 22 (212.51.220.81).</p>
         <figure>
