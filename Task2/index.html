@@ -164,13 +164,12 @@ figcaption { font-size: .88rem; color: #000000; margin-top: 6px; font-style: ita
 
         <h4>2.1.2. Copy a file from your local host to the studife.it.p.lodz.pl server using the FTP protocol. Use netstat and Wireshark to identify ports which are used for data transmission (local and remote port numbers). Finish the connection and check the local port status.</h4>
         <p>Initially, we attempted to connect to the university servers (studife.it.p.lodz.pl and studife.cti.p.lodz.pl) using the standard FTP protocol on port 21. However, the connection failed immediately: studife.it.p.lodz.pl dropped the session with a 421 Service not available error, while studife.cti.p.lodz.pl returned an ECONNREFUSED (Connection refused) error. Checking netstat confirmed that no TCP connection was established on port 21. This behavior proves that the FTP daemon is disabled on the university servers for security reasons (as FTP transmits credentials and data in plaintext), requiring encrypted alternatives like SSH/SFTP instead.
-Following the instructor's clarification to use any available FTP server to observe the protocol's behavior, we deployed a local FTP server using Python (pyftpdlib) listening on 127.0.0.1 at TCP port 2121 (used instead of port 21 to run in user space without root privileges). We then connected from our local FTP client, enabled passive mode (passive), and uploaded a sample file (test_ftp.txt) using the put command
 </p>
         <figure>
             <img src="images/2_1_2_image.png" alt="FileZilla log showing connection refused on port 21" width="800">
             <figcaption>FileZilla log showing connection refused on port 21</figcaption>
         </figure>
-
+        <p>Following the instructor's clarification to use any available FTP server to observe the protocol's behavior, we deployed a local FTP server using Python (pyftpdlib) listening on 127.0.0.1 at TCP port 2121 (used instead of port 21 to run in user space without root privileges). We then connected from our local FTP client, enabled passive mode (passive), and uploaded a sample file (test_ftp.txt) using the put command</p>
         <figure>
             <img src="images/2_1_2_m1.png" alt="Local FTP server connection" width="800">
             <figcaption>Local FTP server connection</figcaption>
