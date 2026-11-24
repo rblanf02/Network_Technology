@@ -264,60 +264,41 @@ figcaption { font-size: .88rem; color: #000000; margin-top: 6px; font-style: ita
 
             <h4>2.1.7. When using tracert, assign consecutive hops to private/public network addresses.</h4>
             <p>
-            Private addresses are those of RFC 1918 (10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16). All other addresses are public. The first three hops are identical for the three Internet hosts and for www.lodman.pl. The first hop (<code>172.26.224.1</code>) is the gateway of the VPN adapter (TAP, <code>172.26.228.217/21</code>), so the traffic enters the university network through the VPN before reaching the Internet.
+              A private address is one that belongs to the ranges 10.x.x.x, 172.16.x.x&ndash;172.31.x.x or 192.168.x.x. These addresses are only used inside internal networks. Any other address is public and can be reached on the Internet.
             </p>
+            <p><b>Local network computer (10.128.0.1):</b> the route has only 1 hop, the gateway <code>10.128.0.1</code>, which is a private address. The traffic does not leave the local network.</p>
+            <p>For the other hosts, the first 7 hops are the same for www.onet.pl, www.google.com, www.google.pl and www.lodman.pl:</p>
+
             <div class="tw">
             <table>
-                <tr><th>Hop</th><th>Name</th><th>Address</th><th>Type</th></tr>
-                <tr><td>1</td><td>VPN gateway</td><td>172.26.224.1</td><td>Private (172.16.0.0/12)</td></tr>
-                <tr><td>2</td><td>cli-ext.p.lodz.pl</td><td>192.168.15.1</td><td>Private (192.168.0.0/16)</td></tr>
-                <tr><td>3</td><td>arobd-gate.p.lodz.pl</td><td>192.168.112.1</td><td>Private (192.168.0.0/16)</td></tr>
+                <tr><th>Hop</th><th>Name</th><th>IP address</th><th>Type</th></tr>
+                <tr><td>1</td><td>&ndash;</td><td>172.26.224.1</td><td>Private</td></tr>
+                <tr><td>2</td><td>cli-ext.p.lodz.pl</td><td>192.168.15.1</td><td>Private</td></tr>
+                <tr><td>3</td><td>arobd-gate.p.lodz.pl</td><td>192.168.112.1</td><td>Private</td></tr>
                 <tr><td>4</td><td>ex-fw-uss.p.lodz.pl</td><td>212.51.207.88</td><td>Public</td></tr>
                 <tr><td>5</td><td>uci-uss-1.lodz.pl</td><td>212.51.207.81</td><td>Public</td></tr>
                 <tr><td>6</td><td>pl-in-0.p.lodz.pl</td><td>212.51.208.217</td><td>Public</td></tr>
                 <tr><td>7</td><td>PL-FW2.p.lodz.pl</td><td>212.191.92.141</td><td>Public</td></tr>
-                <tr><td>8 (google.com)</td><td>z-LODMANa.lodz.tpnet.pl</td><td>80.50.63.41</td><td>Public</td></tr>
-                <tr><td>9 (google.com)</td><td>&ndash;</td><td>195.116.35.194</td><td>Public</td></tr>
-                <tr><td>10 (google.com)</td><td>&ndash;</td><td>142.250.165.190</td><td>Public</td></tr>
-                <tr><td>11 (google.com)</td><td>destination</td><td>142.251.150.119</td><td>Public</td></tr>
-                <tr><td>8 (google.pl)</td><td>z-LODMAN.poznan-gw7.rtr.pionier.gov.pl</td><td>212.191.225.14</td><td>Public</td></tr>
-                <tr><td>9 (google.pl)</td><td>&ndash;</td><td>72.14.203.178</td><td>Public</td></tr>
-                <tr><td>10 (google.pl)</td><td>destination (nt-in-f94.1e100.net)</td><td>142.251.98.94</td><td>Public</td></tr>
-                <tr><td>8 (lodman.pl)</td><td>plck-fw2-v7.man.lodz.pl</td><td>212.51.192.74</td><td>Public</td></tr>
-                <tr><td>9 (lodman.pl)</td><td>destination (proxy.man.lodz.pl)</td><td>212.191.2.25</td><td>Public</td></tr>
             </table>
             </div>
             <p>
-                The change from private to public addresses happens at hop 4, where the firewall of the university (<code>ex-fw-uss</code>) performs NAT between the internal network and the Internet. For www.onet.pl, the hops after the PIONIER router belong to Amazon CloudFront.
+                After hop 7 the routes are different for each destination, but all the addresses that answer are public. Some hops of www.onet.pl do not answer (request timed out), so their address is unknown and they cannot be classified.
             </p>
 
 
             <h4>2.1.8. Check the IP address and physical address of your host using ipconfig.</h4>
             <p>
-              The command <code>ipconfig /all</code> was run on the host <code>Draco</code>. The active adapter is the Wi-Fi card.
+                The command <code>ipconfig /all</code> was used. The computer is connected to the network through the Wi-Fi adapter, so these are the values of that adapter:
             </p>
+            <ul>
+                <li><b>IP address:</b> <code>10.128.143.233</code> (private address, mask <code>255.255.0.0</code>)</li>
+                <li><b>Physical address (MAC):</b> <code>14-B5-CD-03-4A-5F</code></li>
+                <li><b>Default gateway:</b> <code>10.128.0.1</code></li>
+            </ul>
             <figure>
-    <img src="images/13.png" alt="ipconfig /all, VPN and Hyper-V adapters" width="800">
-    <figcaption>ipconfig /all: general configuration, VPN and Hyper-V adapters</figcaption>
+    <img src="images/14.png" alt="ipconfig /all, Wi-Fi adapter" width="800">
+    <figcaption>ipconfig /all: Wi-Fi adapter with the IP and physical address</figcaption>
 </figure>
-<figure>
-    <img src="images/14.png" alt="ipconfig /all, Wi-Fi and Ethernet adapters" width="800">
-    <figcaption>ipconfig /all: Wi-Fi and Ethernet adapters</figcaption>
-</figure>
-    <table>
-    <tr><th>Adapter</th><th>IPv4 address</th><th>Mask</th><th>Gateway</th><th>Physical (MAC) address</th></tr>
-    <tr><td>Wi-Fi (Realtek RTL8852BE)</td><td>10.128.143.233</td><td>255.255.0.0</td><td>10.128.0.1</td><td>14-B5-CD-03-4A-5F</td></tr>
-    <tr><td>Ethernet (Realtek GbE) &ndash; disconnected</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>38-A7-46-3C-AF-A3</td></tr>
-    <tr><td>VPN (TAP-Windows V9, OpenVPN)</td><td>172.26.228.217</td><td>255.255.248.0</td><td>&ndash;</td><td>00-FF-29-ED-17-4F</td></tr>
-    <tr><td>Hyper-V vEthernet (Default Switch)</td><td>172.19.160.1</td><td>255.255.240.0</td><td>&ndash;</td><td>00-15-5D-17-A6-66</td></tr>
-</table>
-</div>
-<ul>
-    <li>The Wi-Fi address is assigned by DHCP (server <code>7.7.7.7</code>); the lease was obtained on 24 November 2026 at 17:37:43 and expires at 21:37:43.</li>
-    <li>DNS servers: <code>212.51.207.67</code> and <code>212.191.86.186</code>. DNS suffix: <code>p.lodz.pl</code>.</li>
-    <li>IPv6 link-local address of the Wi-Fi adapter: <code>fe80::96a6:a3b7:a2b5:8cc</code>.</li>
-    <li>All IPv4 addresses are private. The network of the Wi-Fi adapter is 10.128.0.0/16 and the VPN adapter is in 172.26.224.0/21, which explains why the first hop of tracert is <code>172.26.224.1</code>.</li>
-</ul>
 
     </main>
 </body>
