@@ -214,45 +214,110 @@ figcaption { font-size: .88rem; color: #000000; margin-top: 6px; font-style: ita
             <p>
                 The host resolved to <code>142.251.150.119</code>.
             </p>
-            <figure>
-                <img src="images/6.png" alt="ping and tracert to www.google.com" width="800">
-                <figcaption>ping and tracert to www.google.com</figcaption>
-            </figure>
+            <ul>
+              <li><b>ping:</b> 4/4 packets received, 0% loss. Times were 11&ndash;246 ms (average 88 ms), TTL=115. The high maximum is an isolated delay spike, not packet loss.</li>
+              <li><b>tracert:</b> destination reached in 11 hops. Hops 1&ndash;3 are private addresses inside the university network, hops 4&ndash;8 are public addresses of the Lodz University of Technology and the academic/ISP backbone (<code>z-LODMANa.lodz.tpnet.pl</code>), and hops 9&ndash;11 belong to the Google network. Some hops show isolated peaks (e.g. 572 ms at hop 3), which are caused by routers giving low priority to ICMP replies and do not affect the final result.</li>
+          </ul>
+          <figure>
+              <img src="images/6.png" alt="ping and tracert to www.google.com" width="800">
+              <figcaption>ping and tracert to www.google.com</figcaption>
+          </figure>
 
             <h4>2.1.4. www.google.pl</h4>
-            <p>...</p>
+            <p>
+              The host resolved to <code>142.251.98.94</code> (<code>nt-in-f94.1e100.net</code>).
+            </p>
             <figure>
-                <img src="images/.png" alt="Description of image" width="800">
-                <figcaption>Description of image</figcaption>
-            </figure>
+              <img src="images/7.png" alt="ping and tracert to www.google.pl" width="800">
+              <figcaption>ping and tracert to www.google.pl</figcaption>
+          </figure>
 
             <h4>2.1.5. www.lodman.pl</h4>
-            <p>...</p>
+            <p>
+                The name <code>www.lodman.pl</code> resolved to <code>212.191.2.25</code> (<code>proxy.man.lodz.pl</code>).
+            </p>
             <figure>
-                <img src="images/.png" alt="Description of image" width="800">
-                <figcaption>Description of image</figcaption>
+                <img src="images/8.png" alt="ping and tracert to www.lodman.pl" width="800">
+                <figcaption>ping and tracert to www.lodman.pl</figcaption>
             </figure>
 
             <h4>2.1.6. Identify the physical location of the above-mentioned servers (search for tools on the Internet).</h4>
-            <p>...</p>
+            <p>
+              I used the online IP geolocation tool WhatsmyIP.com
+          </p>
+             <figure>
+                <img src="images/91.png" alt="Geolocation of 13.227.146.19 (www.onet.pl)" width="800">
+                <figcaption>Geolocation of www.onet.pl (13.227.146.19)</figcaption>
+            </figure>
             <figure>
-                <img src="images/.png" alt="Description of image" width="800">
-                <figcaption>Description of image</figcaption>
+                <img src="images/101.png" alt="Geolocation of 142.251.153.119 (www.google.com)" width="800">
+                <figcaption>Geolocation of www.google.com (142.251.153.119)</figcaption>
+            </figure>
+            <figure>
+                <img src="images/11.png" alt="Geolocation of 142.251.98.94 (www.google.pl)" width="800">
+                <figcaption>Geolocation of www.google.pl (142.251.98.94)</figcaption>
+            </figure>
+            <figure>
+                <img src="images/12.png" alt="Geolocation of 212.191.2.25 (www.lodman.pl)" width="800">
+                <figcaption>Geolocation of www.lodman.pl (212.191.2.25)</figcaption>
             </figure>
 
             <h4>2.1.7. When using tracert, assign consecutive hops to private/public network addresses.</h4>
-            <p>...</p>
-            <figure>
-                <img src="images/.png" alt="Description of image" width="800">
-                <figcaption>Description of image</figcaption>
-            </figure>
+            <p>
+            Private addresses are those of RFC 1918 (10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16). All other addresses are public. The first three hops are identical for the three Internet hosts and for www.lodman.pl. The first hop (<code>172.26.224.1</code>) is the gateway of the VPN adapter (TAP, <code>172.26.228.217/21</code>), so the traffic enters the university network through the VPN before reaching the Internet.
+            </p>
+            <div class="tw">
+            <table>
+                <tr><th>Hop</th><th>Name</th><th>Address</th><th>Type</th></tr>
+                <tr><td>1</td><td>VPN gateway</td><td>172.26.224.1</td><td>Private (172.16.0.0/12)</td></tr>
+                <tr><td>2</td><td>cli-ext.p.lodz.pl</td><td>192.168.15.1</td><td>Private (192.168.0.0/16)</td></tr>
+                <tr><td>3</td><td>arobd-gate.p.lodz.pl</td><td>192.168.112.1</td><td>Private (192.168.0.0/16)</td></tr>
+                <tr><td>4</td><td>ex-fw-uss.p.lodz.pl</td><td>212.51.207.88</td><td>Public</td></tr>
+                <tr><td>5</td><td>uci-uss-1.lodz.pl</td><td>212.51.207.81</td><td>Public</td></tr>
+                <tr><td>6</td><td>pl-in-0.p.lodz.pl</td><td>212.51.208.217</td><td>Public</td></tr>
+                <tr><td>7</td><td>PL-FW2.p.lodz.pl</td><td>212.191.92.141</td><td>Public</td></tr>
+                <tr><td>8 (google.com)</td><td>z-LODMANa.lodz.tpnet.pl</td><td>80.50.63.41</td><td>Public</td></tr>
+                <tr><td>9 (google.com)</td><td>&ndash;</td><td>195.116.35.194</td><td>Public</td></tr>
+                <tr><td>10 (google.com)</td><td>&ndash;</td><td>142.250.165.190</td><td>Public</td></tr>
+                <tr><td>11 (google.com)</td><td>destination</td><td>142.251.150.119</td><td>Public</td></tr>
+                <tr><td>8 (google.pl)</td><td>z-LODMAN.poznan-gw7.rtr.pionier.gov.pl</td><td>212.191.225.14</td><td>Public</td></tr>
+                <tr><td>9 (google.pl)</td><td>&ndash;</td><td>72.14.203.178</td><td>Public</td></tr>
+                <tr><td>10 (google.pl)</td><td>destination (nt-in-f94.1e100.net)</td><td>142.251.98.94</td><td>Public</td></tr>
+                <tr><td>8 (lodman.pl)</td><td>plck-fw2-v7.man.lodz.pl</td><td>212.51.192.74</td><td>Public</td></tr>
+                <tr><td>9 (lodman.pl)</td><td>destination (proxy.man.lodz.pl)</td><td>212.191.2.25</td><td>Public</td></tr>
+            </table>
+            </div>
+            <p>
+                The change from private to public addresses happens at hop 4, where the firewall of the university (<code>ex-fw-uss</code>) performs NAT between the internal network and the Internet. For www.onet.pl, the hops after the PIONIER router belong to Amazon CloudFront.
+            </p>
+
 
             <h4>2.1.8. Check the IP address and physical address of your host using ipconfig.</h4>
-            <p>...</p>
+            <p>
+              The command <code>ipconfig /all</code> was run on the host <code>Draco</code>. The active adapter is the Wi-Fi card.
+            </p>
             <figure>
-                <img src="images/.png" alt="Description of image" width="800">
-                <figcaption>Description of image</figcaption>
-            </figure>
+    <img src="images/13.png" alt="ipconfig /all, VPN and Hyper-V adapters" width="800">
+    <figcaption>ipconfig /all: general configuration, VPN and Hyper-V adapters</figcaption>
+</figure>
+<figure>
+    <img src="images/14.png" alt="ipconfig /all, Wi-Fi and Ethernet adapters" width="800">
+    <figcaption>ipconfig /all: Wi-Fi and Ethernet adapters</figcaption>
+</figure>
+    <table>
+    <tr><th>Adapter</th><th>IPv4 address</th><th>Mask</th><th>Gateway</th><th>Physical (MAC) address</th></tr>
+    <tr><td>Wi-Fi (Realtek RTL8852BE)</td><td>10.128.143.233</td><td>255.255.0.0</td><td>10.128.0.1</td><td>14-B5-CD-03-4A-5F</td></tr>
+    <tr><td>Ethernet (Realtek GbE) &ndash; disconnected</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>38-A7-46-3C-AF-A3</td></tr>
+    <tr><td>VPN (TAP-Windows V9, OpenVPN)</td><td>172.26.228.217</td><td>255.255.248.0</td><td>&ndash;</td><td>00-FF-29-ED-17-4F</td></tr>
+    <tr><td>Hyper-V vEthernet (Default Switch)</td><td>172.19.160.1</td><td>255.255.240.0</td><td>&ndash;</td><td>00-15-5D-17-A6-66</td></tr>
+</table>
+</div>
+<ul>
+    <li>The Wi-Fi address is assigned by DHCP (server <code>7.7.7.7</code>); the lease was obtained on 24 November 2026 at 17:37:43 and expires at 21:37:43.</li>
+    <li>DNS servers: <code>212.51.207.67</code> and <code>212.191.86.186</code>. DNS suffix: <code>p.lodz.pl</code>.</li>
+    <li>IPv6 link-local address of the Wi-Fi adapter: <code>fe80::96a6:a3b7:a2b5:8cc</code>.</li>
+    <li>All IPv4 addresses are private. The network of the Wi-Fi adapter is 10.128.0.0/16 and the VPN adapter is in 172.26.224.0/21, which explains why the first hop of tracert is <code>172.26.224.1</code>.</li>
+</ul>
 
     </main>
 </body>
