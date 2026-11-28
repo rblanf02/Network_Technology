@@ -152,14 +152,22 @@ figcaption { font-size: .88rem; color: #000000; margin-top: 6px; font-style: ita
     <h3>2.1. Analysis of Network and Transport Layers</h3>
 
         <h4>2.1.1. Enter the www.google.com webpage using your preferred browser. Use netstat and Wireshark to identify ports which are used for data transmission (local and remote port numbers). Finish the connection (close the browser) and check the local port status.</h4>
-        <p>When opening www.google.com in a web browser, an HTTPS connection is established using the TCP protocol. The remote server listens on port 443. Netstat shows active connections in the ESTABLISHED state during data transfer, which then transition to TIME_WAIT status after the browser is closed to safely release the connection. Wireshark captures confirm the TCP traffic and TLS handshake over remote port 443.</p>
+        <p>When opening www.google.com in a web browser, an HTTPS connection is established using the TCP protocol. As shown in netstat, the remote Google server (172.217.117.4) listens on port 443, while the local computer (10.239.201.137) uses the dynamic port 57306. During browsing, this connection appears in the ESTABLISHED state. After closing the browser completely, running netstat again confirms that local port 57306 changes to the TIME_WAIT state before closing. Filtering Wireshark by this exact local port (tcp.port == 57306) isolates the Google connection, clearly showing the initial three-way handshake (SYN, SYN-ACK, ACK), the TLS encrypted traffic, and the final connection release (FIN-ACK, ACK).</p>
         <figure>
-            <img src="images/2_1_1_image1.png" alt="Netstat output showing local and remote ports for HTTPS traffic" width="800">
-            <figcaption>Netstat output showing local and remote ports for HTTPS traffic</figcaption>
+            <img src="images/2_1_1_image1.png" alt="Netstat output showing active ESTABLISHED connection to Google on port 443" width="800">
+            <figcaption>Netstat output showing active ESTABLISHED connection between local port 57306 and Google (172.217.117.4:443)</figcaption>
         </figure>
         <figure>
-            <img src="images/2_1_1_image2.png" alt="Wireshark packet capture filtered by TCP port 443" width="800">
-            <figcaption>Wireshark packet capture filtered by TCP port 443</figcaption>
+            <img src="images/2_1_1_image2.png" alt="Netstat output after closing the browser showing TIME_WAIT status" width="800">
+            <figcaption>Netstat output after closing the browser showing local port 57306 in TIME_WAIT status</figcaption>
+        </figure>
+        <figure>
+            <img src="images/2_1_1_image3.png" alt="Wireshark packet capture showing the TCP three-way handshake on port 57306" width="800">
+            <figcaption>Wireshark capture filtered by tcp.port == 57306 showing the three-way handshake (SYN, SYN-ACK, ACK) and TLS Client Hello</figcaption>
+        </figure>
+        <figure>
+            <img src="images/2_1_1_image4.png" alt="Wireshark packet capture showing TCP connection termination on port 57306" width="800">
+            <figcaption>Wireshark capture filtered by tcp.port == 57306 showing the connection release (FIN-ACK and ACK)</figcaption>
         </figure>
 
         <h4>2.1.2. Copy a file from your local host to the studife.it.p.lodz.pl server using the FTP protocol. Use netstat and Wireshark to identify ports which are used for data transmission (local and remote port numbers). Finish the connection and check the local port status.</h4>
@@ -189,14 +197,22 @@ figcaption { font-size: .88rem; color: #000000; margin-top: 6px; font-style: ita
         </figure>
 
         <h4>2.1.3. Copy a file from your local host to the studife.it.p.lodz.pl server using the SCP or SFTP protocol. Use netstat and Wireshark to identify ports which are used for data transmission (local and remote port numbers). Finish the connection and check the local port status.</h4>
-        <p>Transferring the file Hi.txt to the public_html directory on the server was performed using the SFTP protocol over SSH on remote TCP port 22 (212.51.220.81).</p>
+        <p>Transferring the file Hi.txt to the public_html directory on studife.cti.p.lodz.pl (212.51.220.81) was performed via command line using the SFTP protocol over SSH on remote TCP port 22. During the active transfer, netstat confirms an ESTABLISHED TCP connection between the local VPN interface dynamic port (172.26.228.153:59063) and remote port 22. After terminating the SFTP session with the exit command, Wireshark shows that the client closes the socket immediately with a TCP RST-ACK packet, and re-running netstat confirms that local port 59063 is completely closed and released. Wireshark captures filtered by TCP port 22 also display the initial TCP three-way handshake (SYN, SYN-ACK, ACK).</p>
         <figure>
-            <img src="images/2_1_3_image1.png" alt="FileZilla interface showing successful file upload of Hi.txt via SFTP" width="800">
-            <figcaption>FileZilla interface showing successful file upload of Hi.txt via SFTP</figcaption>
+            <img src="images/2_1_3_image1.png" alt="Command prompt showing SFTP connection and upload of Hi.txt" width="800">
+            <figcaption>SFTP command-line session uploading Hi.txt to public_html on studife.cti.p.lodz.pl</figcaption>
         </figure>
         <figure>
-            <img src="images/2_1_3_image2.png" alt="Netstat output showing active SFTP connection on remote port 22" width="800">
-            <figcaption>Netstat output showing active SFTP connection on remote port 22</figcaption>
+            <img src="images/2_1_3_image2.png" alt="Netstat output during and after SFTP session on port 59063" width="800">
+            <figcaption>Netstat output showing active ESTABLISHED SFTP connection on local port 59063 and socket release after exit</figcaption>
+        </figure>
+        <figure>
+            <img src="images/2_1_3_image3.png" alt="Wireshark packet capture showing SFTP/SSH handshake and protocol negotiation on TCP port 22" width="800">
+            <figcaption>Wireshark capture filtered by tcp.port == 22 showing the TCP handshake (SYN, SYN-ACK, ACK) and SSHv2 protocol exchange</figcaption>
+        </figure>
+        <figure>
+            <img src="images/2_1_3_image4.png" alt="Wireshark packet capture showing SFTP/SSH encrypted packets and connection termination" width="800">
+            <figcaption>Wireshark capture filtered by tcp.port == 22 showing the encrypted data exchange and final connection reset (RST, ACK)</figcaption>
         </figure>
 
         <h4>2.1.4. Use Wireshark to check which protocol and port are used in the transport layer by the DNS protocol.</h4>
